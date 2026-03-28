@@ -1,0 +1,33 @@
+{
+  "name": "dedocs",
+  "version": "0.2.0",
+  "description": "Single-file, package-exact, AI-native source for .docx documents.",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "bin": {
+    "dedocs": "./bin/dedocs.js"
+  },
+  "scripts": {
+    "build:site": "node scripts/build-site.js",
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [
+    "docx",
+    "ooxml",
+    "document-source",
+    "text-ir",
+    "ai-editing"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jqdwdty/dedocs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jqdwdty/dedocs/issues"
+  },
+  "homepage": "https://jqdwdty.github.io/dedocs/",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

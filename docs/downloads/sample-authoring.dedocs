@@ -1,0 +1,181 @@
+\dedocs[version="1", package="docx", fidelity="package-exact", source="sample-report.docx"]
+
+\guide[name="document-paragraphs", part="word/document.xml", format="paragraphs", boundary=":::DEDOCS_GUIDE_1_63ba19b0f4dc:::"]
+:::DEDOCS_GUIDE_1_63ba19b0f4dc:::
+\p[index="0000", style="Heading1"] Introduction
+\p[index="0001"] This is the first paragraph of the introduction. It contains some text about platform governance, political advertising, and auditability.
+\p[index="0002"] The second paragraph discusses Meta's advertising ban and its consequences for electoral transparency.
+\p[index="0003", style="Heading1"] Methods
+\p[index="0004"] Table 1. Example metrics
+\p[index="0005"] Metric
+\p[index="0006"] Value
+\p[index="0007"] Ads collected
+\p[index="0008"] 268,635
+\p[index="0009"] Confirmed advertisers
+\p[index="0010"] 192
+\p[index="0011"] This inserted paragraph shows how dedocs adds body text without raw XML edits.
+\p[index="0012"] We developed an automated monitoring system that collected 268,635 advertisements from the Meta Ad Library.
+\p[index="0013"] This inserted paragraph lands before Results and stays anchored by expectations.
+\p[index="0014", style="Heading1"] Results
+\p[index="0016"] Figure 1. Synthetic reference image
+\p[index="0017"] We confirmed 192 accounts as political advertisers that placed a total of 1,329 ads during the campaign period.
+\p[index="0018", style="Heading1"] Discussion
+\p[index="0019"] The findings document a specific failure mode of platform self-regulation.
+:::DEDOCS_GUIDE_1_63ba19b0f4dc:::
+\end{guide}
+
+\replace-text[part="word/document.xml", count="1"]
+<<<FIND
+platform governance and political advertising.
+FIND
+<<<WITH
+platform governance, political advertising, and auditability.
+WITH
+\end{replace-text}
+
+\format-text[part="", index="0002", match="Meta", count="", expectedText="The second paragraph discusses Meta's advertising ban and its consequences for electoral transparency.", expectedStyle="", bold="true", italic="true", underline="", color="0F766E", highlight="", superscript="", subscript=""]
+\end{format-text}
+
+\insert-comment[part="", index="0001", match="platform governance", count="", expectedText="This is the first paragraph of the introduction. It contains some text about platform governance, political advertising, and auditability.", expectedStyle="", author="Dedocs", date=""]
+<<<TEXT
+Clarify the exact policy boundary here.
+TEXT
+\end{insert-comment}
+
+\insert-footnote[part="", index="0004", match="268,635 advertisements", count="", expectedText="We developed an automated monitoring system that collected 268,635 advertisements from the Meta Ad Library.", expectedStyle=""]
+<<<TEXT
+Synthetic note inserted through the semantic layer.
+TEXT
+\end{insert-footnote}
+
+\insert-paragraph-after[part="", index="0003", style="", expectedText="Methods", expectedStyle="Heading1"]
+<<<TEXT
+This inserted paragraph shows how dedocs adds body text without raw XML edits.
+TEXT
+\end{insert-paragraph-after}
+
+\insert-paragraph-before[part="", index="0005", style="", expectedText="Results", expectedStyle="Heading1"]
+<<<TEXT
+This inserted paragraph lands before Results and stays anchored by expectations.
+TEXT
+\end{insert-paragraph-before}
+
+\insert-table-after[part="", index="0003", expectedText="Methods", expectedStyle="Heading1", caption="Table 1. Example metrics", style="", headers=""]
+<<<TSV
+Metric	Value
+Ads collected	268,635
+Confirmed advertisers	192
+TSV
+\end{insert-table-after}
+
+\insert-figure-after[part="", index="0005", expectedText="Results", expectedStyle="Heading1", imagePart="word/media/showcase-image.png", widthPx="120", heightPx="90", caption="Figure 1. Synthetic reference image", altText="Synthetic reference image"]
+\end{insert-figure-after}
+
+\part[path="[Content_Types].xml", mediaType="application/xml", encoding="utf8", bytes="623", sha256="66d0993dd9bd3bdd6ee8b7753c37f08d1628b75a19409ff47d3535493466aa86", boundary=":::DEDOCS_PART_1_66d0993dd9bd:::"]
+:::DEDOCS_PART_1_66d0993dd9bd:::
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+  <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+  <Default Extension="xml" ContentType="application/xml"/>
+  <Default Extension="png" ContentType="image/png"/>
+  <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
+  <Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>
+</Types>
+:::DEDOCS_PART_1_66d0993dd9bd:::
+\end{part}
+
+\part[path="_rels/.rels", mediaType="application/octet-stream", encoding="utf8", bytes="302", sha256="e9369a2425724259c87f4b280c2466ca505ff37212fdb8daeccdfd73ffb27101", boundary=":::DEDOCS_PART_2_e9369a242572:::"]
+:::DEDOCS_PART_2_e9369a242572:::
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
+</Relationships>
+:::DEDOCS_PART_2_e9369a242572:::
+\end{part}
+
+\part[path="word/_rels/document.xml.rels", mediaType="application/xml", encoding="utf8", bytes="287", sha256="c4424d40b3965466e429ebc82690c78d98dc094bb3163b45d731182baa3fac73", boundary=":::DEDOCS_PART_3_c4424d40b396:::"]
+:::DEDOCS_PART_3_c4424d40b396:::
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+</Relationships>
+:::DEDOCS_PART_3_c4424d40b396:::
+\end{part}
+
+\part[path="word/document.xml", mediaType="application/xml", encoding="utf8", bytes="2764", sha256="89ef6389c30157595358aad6470a55f2ed2557d118bbc4094a6f58917f9f3241", boundary=":::DEDOCS_PART_4_89ef6389c301:::"]
+:::DEDOCS_PART_4_89ef6389c301:::
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+            xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+            xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml"
+            xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml"
+            xmlns:w16cid="http://schemas.microsoft.com/office/word/2016/wordml/cid"
+            xmlns:w16cex="http://schemas.microsoft.com/office/word/2018/wordml/cex"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+  <w:body>
+    <w:p>
+      <w:pPr><w:pStyle w:val="Heading1"/></w:pPr>
+      <w:r><w:t>Introduction</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve">This is the first paragraph of the introduction. It contains some text about platform governance and political advertising.</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve">The second paragraph discusses Meta</w:t></w:r><w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/><w:b/></w:rPr><w:t xml:space="preserve">&apos;s advertising ban</w:t></w:r><w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve"> and its consequences for electoral transparency.</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:pPr><w:pStyle w:val="Heading1"/></w:pPr>
+      <w:r><w:t>Methods</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve">We developed an automated monitoring system that collected 268,635 advertisements from the Meta Ad Library.</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:pPr><w:pStyle w:val="Heading1"/></w:pPr>
+      <w:r><w:t>Results</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve">We confirmed 192 accounts as political advertisers that placed a total of 1,329 ads during the campaign period.</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:pPr><w:pStyle w:val="Heading1"/></w:pPr>
+      <w:r><w:t>Discussion</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve">The findings document a specific failure mode of platform self-regulation.</w:t></w:r>
+    </w:p>
+    <w:sectPr/>
+  </w:body>
+</w:document>
+:::DEDOCS_PART_4_89ef6389c301:::
+\end{part}
+
+\part[path="word/styles.xml", mediaType="application/xml", encoding="utf8", bytes="621", sha256="e517b7fc6dc8f799262edc4860c2cdbc14e5ddc9bbf8fd8d9d83503e47ef7e9f", boundary=":::DEDOCS_PART_5_e517b7fc6dc8:::"]
+:::DEDOCS_PART_5_e517b7fc6dc8:::
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:style w:type="paragraph" w:styleId="Heading1">
+    <w:name w:val="heading 1"/>
+    <w:pPr><w:keepNext/></w:pPr>
+    <w:rPr><w:b/><w:sz w:val="28"/></w:rPr>
+  </w:style>
+  <w:style w:type="character" w:styleId="CommentReference">
+    <w:name w:val="annotation reference"/>
+    <w:rPr><w:sz w:val="16"/></w:rPr>
+  </w:style>
+  <w:style w:type="paragraph" w:styleId="CommentText">
+    <w:name w:val="annotation text"/>
+    <w:rPr><w:sz w:val="20"/></w:rPr>
+  </w:style>
+</w:styles>
+:::DEDOCS_PART_5_e517b7fc6dc8:::
+\end{part}
+
+\part[path="word/media/showcase-image.png", mediaType="image/png", encoding="base64", bytes="69", sha256="18ed33080443f2e2ca79eecd629e12d4636c9bc83543a4e45cb8dbe53e0b4be7", boundary=":::DEDOCS_PART_6_388f2e34379d:::"]
+:::DEDOCS_PART_6_388f2e34379d:::
+iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQI12P4z8AAAAACAAHiIbwz
+AAAAAElFTkSuQmCC
+:::DEDOCS_PART_6_388f2e34379d:::
+\end{part}
+
+\end{dedocs}

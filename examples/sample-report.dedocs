@@ -1,0 +1,117 @@
+\dedocs[version="1", package="docx", fidelity="package-exact", source="sample-report.docx"]
+
+\guide[name="document-paragraphs", part="word/document.xml", format="paragraphs", boundary=":::DEDOCS_GUIDE_1_ac4358603bd5:::"]
+:::DEDOCS_GUIDE_1_ac4358603bd5:::
+\p[index="0000", style="Heading1"] Introduction
+\p[index="0001"] This is the first paragraph of the introduction. It contains some text about platform governance and political advertising.
+\p[index="0002"] The second paragraph discusses Meta's advertising ban and its consequences for electoral transparency.
+\p[index="0003", style="Heading1"] Methods
+\p[index="0004"] We developed an automated monitoring system that collected 268,635 advertisements from the Meta Ad Library.
+\p[index="0005", style="Heading1"] Results
+\p[index="0006"] We confirmed 192 accounts as political advertisers that placed a total of 1,329 ads during the campaign period.
+\p[index="0007", style="Heading1"] Discussion
+\p[index="0008"] The findings document a specific failure mode of platform self-regulation.
+:::DEDOCS_GUIDE_1_ac4358603bd5:::
+\end{guide}
+
+\part[path="[Content_Types].xml", mediaType="application/xml", encoding="utf8", bytes="623", sha256="66d0993dd9bd3bdd6ee8b7753c37f08d1628b75a19409ff47d3535493466aa86", boundary=":::DEDOCS_PART_1_66d0993dd9bd:::"]
+:::DEDOCS_PART_1_66d0993dd9bd:::
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+  <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+  <Default Extension="xml" ContentType="application/xml"/>
+  <Default Extension="png" ContentType="image/png"/>
+  <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
+  <Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>
+</Types>
+:::DEDOCS_PART_1_66d0993dd9bd:::
+\end{part}
+
+\part[path="_rels/.rels", mediaType="application/octet-stream", encoding="utf8", bytes="302", sha256="e9369a2425724259c87f4b280c2466ca505ff37212fdb8daeccdfd73ffb27101", boundary=":::DEDOCS_PART_2_e9369a242572:::"]
+:::DEDOCS_PART_2_e9369a242572:::
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
+</Relationships>
+:::DEDOCS_PART_2_e9369a242572:::
+\end{part}
+
+\part[path="word/_rels/document.xml.rels", mediaType="application/xml", encoding="utf8", bytes="287", sha256="c4424d40b3965466e429ebc82690c78d98dc094bb3163b45d731182baa3fac73", boundary=":::DEDOCS_PART_3_c4424d40b396:::"]
+:::DEDOCS_PART_3_c4424d40b396:::
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+</Relationships>
+:::DEDOCS_PART_3_c4424d40b396:::
+\end{part}
+
+\part[path="word/document.xml", mediaType="application/xml", encoding="utf8", bytes="2764", sha256="89ef6389c30157595358aad6470a55f2ed2557d118bbc4094a6f58917f9f3241", boundary=":::DEDOCS_PART_4_89ef6389c301:::"]
+:::DEDOCS_PART_4_89ef6389c301:::
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+            xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+            xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml"
+            xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml"
+            xmlns:w16cid="http://schemas.microsoft.com/office/word/2016/wordml/cid"
+            xmlns:w16cex="http://schemas.microsoft.com/office/word/2018/wordml/cex"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+  <w:body>
+    <w:p>
+      <w:pPr><w:pStyle w:val="Heading1"/></w:pPr>
+      <w:r><w:t>Introduction</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve">This is the first paragraph of the introduction. It contains some text about platform governance and political advertising.</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve">The second paragraph discusses Meta</w:t></w:r><w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/><w:b/></w:rPr><w:t xml:space="preserve">&apos;s advertising ban</w:t></w:r><w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve"> and its consequences for electoral transparency.</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:pPr><w:pStyle w:val="Heading1"/></w:pPr>
+      <w:r><w:t>Methods</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve">We developed an automated monitoring system that collected 268,635 advertisements from the Meta Ad Library.</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:pPr><w:pStyle w:val="Heading1"/></w:pPr>
+      <w:r><w:t>Results</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve">We confirmed 192 accounts as political advertisers that placed a total of 1,329 ads during the campaign period.</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:pPr><w:pStyle w:val="Heading1"/></w:pPr>
+      <w:r><w:t>Discussion</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve">The findings document a specific failure mode of platform self-regulation.</w:t></w:r>
+    </w:p>
+    <w:sectPr/>
+  </w:body>
+</w:document>
+:::DEDOCS_PART_4_89ef6389c301:::
+\end{part}
+
+\part[path="word/styles.xml", mediaType="application/xml", encoding="utf8", bytes="621", sha256="e517b7fc6dc8f799262edc4860c2cdbc14e5ddc9bbf8fd8d9d83503e47ef7e9f", boundary=":::DEDOCS_PART_5_e517b7fc6dc8:::"]
+:::DEDOCS_PART_5_e517b7fc6dc8:::
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:style w:type="paragraph" w:styleId="Heading1">
+    <w:name w:val="heading 1"/>
+    <w:pPr><w:keepNext/></w:pPr>
+    <w:rPr><w:b/><w:sz w:val="28"/></w:rPr>
+  </w:style>
+  <w:style w:type="character" w:styleId="CommentReference">
+    <w:name w:val="annotation reference"/>
+    <w:rPr><w:sz w:val="16"/></w:rPr>
+  </w:style>
+  <w:style w:type="paragraph" w:styleId="CommentText">
+    <w:name w:val="annotation text"/>
+    <w:rPr><w:sz w:val="20"/></w:rPr>
+  </w:style>
+</w:styles>
+:::DEDOCS_PART_5_e517b7fc6dc8:::
+\end{part}
+
+\end{dedocs}
