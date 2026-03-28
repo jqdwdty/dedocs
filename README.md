@@ -148,6 +148,8 @@ npm run build:site
 
 The static showcase is emitted to [docs/](/mnt/storage/dedocs/docs). Example
 artifacts are emitted to [examples/](/mnt/storage/dedocs/examples).
+GitHub Pages serves the committed [docs/](/mnt/storage/dedocs/docs) directory
+directly, so there is no app server and no deployment backend to maintain.
 
 ## Public Examples
 
@@ -179,3 +181,9 @@ DEDOCS_STRESS_DOCS="/path/to/doc1.docx:/path/to/doc2.docx" npm test
 
 That lets you throw nastier local fixtures at the exact round-trip path without
 shipping private documents in the public repo.
+
+Before pushing site changes, regenerate the committed static assets:
+
+```bash
+npm run build:site
+```
