@@ -64,6 +64,33 @@ function renderPrinciples(data) {
     .join('');
 }
 
+function renderWorkflowBand(data) {
+  const parts = [];
+  data.workflowModes.forEach((item, index) => {
+    parts.push(`
+      <article class="workflow-band__node">
+        <span class="workflow-band__ext">${item.ext}</span>
+        <h3>${item.label}</h3>
+      </article>
+    `);
+    if (index < data.workflowModes.length - 1) {
+      parts.push('<div class="workflow-band__arrow" aria-hidden="true">↔</div>');
+    }
+  });
+  document.querySelector('#workflow-band').innerHTML = parts.join('');
+}
+
+function renderUseCases(data) {
+  document.querySelector('#use-cases').innerHTML = data.useCases
+    .map((item) => `
+      <article class="use-case-card">
+        <h3>${item.title}</h3>
+        <p>${item.summary}</p>
+      </article>
+    `)
+    .join('');
+}
+
 function renderGuarantees(data) {
   document.querySelector('#guarantees-list').innerHTML = data.guarantees
     .map((item) => `<li>${item}</li>`)
@@ -116,6 +143,19 @@ function renderChangedParts(data) {
     .join('');
 }
 
+function renderCommandExamples(data) {
+  document.querySelector('#command-examples').innerHTML = data.commandExamples
+    .map((item) => `
+      <article class="demo-card">
+        <p class="demo-card__label">${item.label}</p>
+        <h3>${item.label}</h3>
+        <pre>${item.command}</pre>
+        <p>${item.result}</p>
+      </article>
+    `)
+    .join('');
+}
+
 function renderCommands(data) {
   document.querySelector('#commands-list').innerHTML = data.commands
     .map((item) => `
@@ -146,6 +186,18 @@ function renderDownloads(data) {
           <span>${formatBytes(item.bytes)}</span>
         </div>
         <a href="${item.href}">Download</a>
+      </article>
+    `)
+    .join('');
+}
+
+function renderQuickStart(data) {
+  document.querySelector('#quick-start').innerHTML = data.quickStart
+    .map((item) => `
+      <article class="quickstart-card">
+        <p class="quickstart-card__label">${item.title}</p>
+        <h3>${item.title}</h3>
+        <pre>${item.command}</pre>
       </article>
     `)
     .join('');
@@ -221,13 +273,17 @@ function enableEntranceMotion() {
 async function main() {
   const data = await loadShowcase();
   renderHero(data);
+  renderWorkflowBand(data);
   renderPrinciples(data);
+  renderUseCases(data);
   renderGuarantees(data);
   renderMetrics(data);
   renderParts(data);
   renderChangedParts(data);
+  renderCommandExamples(data);
   renderCommands(data);
   renderDownloads(data);
+  renderQuickStart(data);
   setupViewer(data);
   enableEntranceMotion();
 }

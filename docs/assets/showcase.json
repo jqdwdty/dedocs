@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-28T08:40:24.249Z",
+  "generatedAt": "2026-03-28T08:46:09.186Z",
   "package": {
     "name": "dedocs",
     "version": "0.2.0",
@@ -103,6 +103,70 @@
       "summary": "Insert a block figure after an anchored paragraph using an existing image part.",
       "scope": "document paragraph",
       "payload": "attributes only"
+    }
+  ],
+  "useCases": [
+    {
+      "title": "AI-facing source artifact",
+      "summary": "Give an agent one file instead of a zip archive and a directory tree of OOXML parts."
+    },
+    {
+      "title": "Versionable document workflow",
+      "summary": "Review document changes as text with explicit commands instead of archive churn."
+    },
+    {
+      "title": "Exact package preservation",
+      "summary": "Keep untouched package parts byte-exact while still exposing readable guides and transforms."
+    }
+  ],
+  "workflowModes": [
+    {
+      "ext": ".docx",
+      "label": "Word package"
+    },
+    {
+      "ext": ".dedocs",
+      "label": "single-file source"
+    },
+    {
+      "ext": "git + AI",
+      "label": "review and editing surface"
+    }
+  ],
+  "commandExamples": [
+    {
+      "label": "Decompile a real document",
+      "command": "dedocs decompile input.docx output.dedocs",
+      "result": "Flatten the package into one source file with guides and explicit parts."
+    },
+    {
+      "label": "Normalize after hand edits",
+      "command": "dedocs normalize output.dedocs",
+      "result": "Refresh guide previews, hashes, byte counts, and safe boundaries."
+    },
+    {
+      "label": "Compile back to .docx",
+      "command": "dedocs compile output.dedocs rebuilt.docx",
+      "result": "Rebuild a real Word package from the single-file source."
+    },
+    {
+      "label": "Verify package equality",
+      "command": "dedocs verify input.docx rebuilt.docx",
+      "result": "See exactly which package parts differ, or get a clean exact-match result."
+    }
+  ],
+  "quickStart": [
+    {
+      "title": "Clone and verify",
+      "command": "git clone https://github.com/jqdwdty/dedocs.git\ncd dedocs\nnpm test"
+    },
+    {
+      "title": "Build the static showcase",
+      "command": "npm run build:site"
+    },
+    {
+      "title": "Run the document loop",
+      "command": "dedocs decompile input.docx output.dedocs\ndedocs normalize output.dedocs\ndedocs compile output.dedocs rebuilt.docx\ndedocs verify input.docx rebuilt.docx"
     }
   ],
   "sample": {

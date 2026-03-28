@@ -79,6 +79,82 @@ function packagePartSummary(pkg) {
   }));
 }
 
+function commandExamples() {
+  return [
+    {
+      label: 'Decompile a real document',
+      command: 'dedocs decompile input.docx output.dedocs',
+      result: 'Flatten the package into one source file with guides and explicit parts.',
+    },
+    {
+      label: 'Normalize after hand edits',
+      command: 'dedocs normalize output.dedocs',
+      result: 'Refresh guide previews, hashes, byte counts, and safe boundaries.',
+    },
+    {
+      label: 'Compile back to .docx',
+      command: 'dedocs compile output.dedocs rebuilt.docx',
+      result: 'Rebuild a real Word package from the single-file source.',
+    },
+    {
+      label: 'Verify package equality',
+      command: 'dedocs verify input.docx rebuilt.docx',
+      result: 'See exactly which package parts differ, or get a clean exact-match result.',
+    },
+  ];
+}
+
+function useCases() {
+  return [
+    {
+      title: 'AI-facing source artifact',
+      summary: 'Give an agent one file instead of a zip archive and a directory tree of OOXML parts.',
+    },
+    {
+      title: 'Versionable document workflow',
+      summary: 'Review document changes as text with explicit commands instead of archive churn.',
+    },
+    {
+      title: 'Exact package preservation',
+      summary: 'Keep untouched package parts byte-exact while still exposing readable guides and transforms.',
+    },
+  ];
+}
+
+function workflowModes() {
+  return [
+    {
+      ext: '.docx',
+      label: 'Word package',
+    },
+    {
+      ext: '.dedocs',
+      label: 'single-file source',
+    },
+    {
+      ext: 'git + AI',
+      label: 'review and editing surface',
+    },
+  ];
+}
+
+function quickStart() {
+  return [
+    {
+      title: 'Clone and verify',
+      command: 'git clone https://github.com/jqdwdty/dedocs.git\ncd dedocs\nnpm test',
+    },
+    {
+      title: 'Build the static showcase',
+      command: 'npm run build:site',
+    },
+    {
+      title: 'Run the document loop',
+      command: 'dedocs decompile input.docx output.dedocs\ndedocs normalize output.dedocs\ndedocs compile output.dedocs rebuilt.docx\ndedocs verify input.docx rebuilt.docx',
+    },
+  ];
+}
+
 function withSampleImage(pkg) {
   pkg.parts.push({
     path: 'word/media/showcase-image.png',
@@ -220,6 +296,10 @@ function main() {
     guarantees: FIDELITY_GUARANTEES,
     commands: CLI_COMMANDS,
     transforms: TRANSFORM_CATALOG,
+    useCases: useCases(),
+    workflowModes: workflowModes(),
+    commandExamples: commandExamples(),
+    quickStart: quickStart(),
     sample: {
       file: {
         name: 'sample-report.docx',

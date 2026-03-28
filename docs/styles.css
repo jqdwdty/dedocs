@@ -144,6 +144,10 @@ main {
   padding: clamp(4rem, 9vw, 7rem) 0;
 }
 
+.section--bridge {
+  padding-top: 0;
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
@@ -385,6 +389,41 @@ h3 {
   margin-top: 1.2rem;
 }
 
+.workflow-band {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.workflow-band__node,
+.use-case-card,
+.demo-card,
+.quickstart-card {
+  background: var(--paper-strong);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.workflow-band__node {
+  border-radius: 1.2rem;
+  padding: 1rem 1rem 1.1rem;
+}
+
+.workflow-band__ext {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--rust);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+}
+
+.workflow-band__arrow {
+  color: var(--ink-faint);
+  font-size: 1.2rem;
+}
+
 .principle-strip__item {
   border-radius: 1.1rem;
   padding: 1rem 1rem 1.15rem;
@@ -405,6 +444,21 @@ h3 {
 .layer-stack {
   display: grid;
   gap: 0.95rem;
+}
+
+.use-case-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.use-case-card {
+  border-radius: 1.25rem;
+  padding: 1.2rem 1.25rem;
+}
+
+.use-case-card p {
+  margin: 0.55rem 0 0;
+  color: var(--ink-soft);
 }
 
 .layer-stack__layer {
@@ -468,6 +522,43 @@ h3 {
   grid-template-columns: minmax(0, 1.14fr) minmax(0, 0.86fr);
   gap: 1rem;
   margin-top: 1.3rem;
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.demo-card {
+  border-radius: 1.3rem;
+  padding: 1.15rem 1.2rem;
+}
+
+.demo-card__label,
+.quickstart-card__label {
+  margin: 0 0 0.8rem;
+  color: var(--rust);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+.demo-card pre,
+.quickstart-card pre {
+  margin: 0.9rem 0 0;
+  white-space: pre-wrap;
+  color: color-mix(in oklab, var(--ink) 88%, var(--teal-deep));
+  line-height: 1.6;
+  font-size: 0.9rem;
+  font-family: "Monaco", "Consolas", "Courier New", monospace;
+}
+
+.demo-card p,
+.quickstart-card p {
+  margin: 0.55rem 0 0;
+  color: var(--ink-soft);
+  line-height: 1.65;
 }
 
 .viewer-pane,
@@ -664,6 +755,17 @@ th {
   margin-top: 1.5rem;
 }
 
+.quickstart-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.quickstart-card {
+  border-radius: 1.25rem;
+  padding: 1.1rem 1.15rem;
+}
+
 .download-dock__item {
   border-radius: 1.2rem;
   padding: 1rem 1.05rem 1.1rem;
@@ -716,11 +818,18 @@ body.is-ready [data-reveal] {
   .showcase-grid,
   .command-grid,
   .comparison-band,
+  .workflow-band,
+  .demo-grid,
   .workflow-rail,
   .download-dock,
+  .quickstart-grid,
   .principle-strip,
   .metric-ribbon {
     grid-template-columns: 1fr;
+  }
+
+  .workflow-band__arrow {
+    display: none;
   }
 
   .guarantee-sheet {
