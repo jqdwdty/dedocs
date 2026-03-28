@@ -16,6 +16,9 @@ const {
   parsePackage,
   serializePackage,
 } = require('../src');
+const {
+  extractDocumentParagraphs,
+} = require('../src/guide');
 
 const rootDir = path.resolve(__dirname, '..');
 const fixtureDocx = path.join(rootDir, 'test', 'fixtures', 'sample-report.docx');
@@ -153,6 +156,75 @@ function quickStart() {
       command: 'dedocs decompile input.docx output.dedocs\ndedocs normalize output.dedocs\ndedocs compile output.dedocs rebuilt.docx\ndedocs verify input.docx rebuilt.docx',
     },
   ];
+}
+
+function playgroundTemplates() {
+  return [
+    {
+      label: 'Replace text',
+      snippet:
+        '\\replace-text[part="word/document.xml", count="1"]\n'
+        + '<<<FIND\n'
+        + 'platform governance and political advertising.\n'
+        + 'FIND\n'
+        + '<<<WITH\n'
+        + 'platform governance, political advertising, and auditability.\n'
+        + 'WITH\n'
+        + '\\end{replace-text}',
+    },
+    {
+      label: 'Format text',
+      snippet:
+        '\\format-text[part="", index="0002", match="Meta", count="", expectedText="The second paragraph discusses Meta\'s advertising ban and its consequences for electoral transparency.", expectedStyle="", bold="true", italic="true", underline="", color="0F766E", highlight="", superscript="", subscript=""]\n'
+        + '\\end{format-text}',
+    },
+    {
+      label: 'Insert comment',
+      snippet:
+        '\\insert-comment[part="", index="0001", match="platform governance", count="", expectedText="This is the first paragraph of the introduction. It contains some text about platform governance and political advertising.", expectedStyle="", author="Dedocs", date=""]\n'
+        + '<<<TEXT\n'
+        + 'Clarify the exact policy boundary here.\n'
+        + 'TEXT\n'
+        + '\\end{insert-comment}',
+    },
+    {
+      label: 'Insert paragraph',
+      snippet:
+        '\\insert-paragraph-after[part="", index="0003", style="", expectedText="Methods", expectedStyle="Heading1"]\n'
+        + '<<<TEXT\n'
+        + 'This inserted paragraph shows how dedocs adds body text without raw XML edits.\n'
+        + 'TEXT\n'
+        + '\\end{insert-paragraph-after}',
+    },
+    {
+      label: 'Insert table',
+      snippet:
+        '\\insert-table-after[part="", index="0003", expectedText="Methods", expectedStyle="Heading1", caption="Table 1. Example metrics", style="", headers=""]\n'
+        + '<<<TSV\n'
+        + 'Metric\tValue\n'
+        + 'Ads collected\t268,635\n'
+        + 'Confirmed advertisers\t192\n'
+        + 'TSV\n'
+        + '\\end{insert-table-after}',
+    },
+    {
+      label: 'Insert figure',
+      snippet:
+        '\\insert-figure-after[part="", index="0005", expectedText="Results", expectedStyle="Heading1", imagePart="word/media/showcase-image.png", widthPx="120", heightPx="90", caption="Figure 1. Synthetic reference image", altText="Synthetic reference image"]\n'
+        + '\\end{insert-figure-after}',
+    },
+  ];
+}
+
+function paragraphGuideData(pkg) {
+  const documentPart = pkg.parts.find(part => part.path === 'word/document.xml' && part.encoding === 'utf8');
+  if (!documentPart) return [];
+
+  return extractDocumentParagraphs(documentPart.buffer.toString('utf8')).map(paragraph => ({
+    index: String(paragraph.index).padStart(4, '0'),
+    style: paragraph.style,
+    text: paragraph.text,
+  }));
 }
 
 function withSampleImage(pkg) {
@@ -300,6 +372,13 @@ function main() {
     workflowModes: workflowModes(),
     commandExamples: commandExamples(),
     quickStart: quickStart(),
+    playground: {
+      note: 'Browser-side authoring sandbox. It parses real dedocs transform syntax, previews guide-level changes, and reports touched package parts. Full package compile and exact verification still belong to the CLI.',
+      baseParagraphs: paragraphGuideData(samplePkg),
+      initialAuthoring: authoringSnippet(authoredDedocsText),
+      templates: playgroundTemplates(),
+      expectedChangedParts: diff.diffs,
+    },
     sample: {
       file: {
         name: 'sample-report.docx',

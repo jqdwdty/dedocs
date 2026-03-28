@@ -22,6 +22,7 @@
           <a href="#what">Why</a>
           <a href="#architecture">Architecture</a>
           <a href="#showcase">Showcase</a>
+          <a href="#playground">Playground</a>
           <a href="#commands">Commands</a>
           <a href="#workflow">Workflow</a>
         </nav>
@@ -40,8 +41,8 @@
           </p>
           <div class="hero__proof" id="hero-proof"></div>
           <div class="hero__actions">
-            <a class="button button--primary" href="https://github.com/jqdwdty/dedocs">View repository</a>
-            <a class="button button--ghost" href="#showcase">Inspect live sample</a>
+            <a class="button button--primary" href="#playground">Open playground</a>
+            <a class="button button--ghost" href="https://github.com/jqdwdty/dedocs">View repository</a>
           </div>
         </div>
 
@@ -210,6 +211,62 @@
         </div>
       </section>
 
+      <section id="playground" class="section section--playground">
+        <div class="section-grid section-grid--playground">
+          <div class="section-head" data-reveal>
+            <p class="eyebrow">Playground</p>
+            <h2>Edit real authoring commands in the browser.</h2>
+            <p class="section-note">
+              This is a static browser-side sandbox for the semantic layer.
+              It parses the same command syntax shown in the sample `.dedocs`
+              file, previews guide-level effects, and tells you which package
+              parts would be touched before you ever run the CLI.
+            </p>
+            <p class="playground-note" id="playground-note"></p>
+          </div>
+
+          <div class="playground-shell" data-reveal style="--delay: 90ms">
+            <div class="playground-toolbar">
+              <div class="playground-toolbar__group" id="playground-templates"></div>
+              <div class="playground-toolbar__group">
+                <button type="button" class="tool-button" id="playground-reset">Reset sample</button>
+                <button type="button" class="tool-button" id="playground-copy">Copy commands</button>
+              </div>
+            </div>
+
+            <div class="playground-grid">
+              <label class="playground-pane playground-pane--editor">
+                <span class="playground-pane__label">Authoring commands</span>
+                <textarea id="playground-input" spellcheck="false" aria-label="Dedocs authoring commands"></textarea>
+              </label>
+
+              <div class="playground-stack">
+                <section class="playground-pane">
+                  <div class="playground-pane__head">
+                    <span class="playground-pane__label">Guide preview</span>
+                    <div class="playground-status" id="playground-status"></div>
+                  </div>
+                  <div class="playground-preview" id="playground-preview"></div>
+                </section>
+
+                <section class="playground-pane">
+                  <div class="playground-meta">
+                    <article class="playground-meta__card">
+                      <span class="playground-pane__label">Touched parts</span>
+                      <ul class="delta-list delta-list--compact" id="playground-parts"></ul>
+                    </article>
+                    <article class="playground-meta__card">
+                      <span class="playground-pane__label">Validation</span>
+                      <ul class="playground-errors" id="playground-errors"></ul>
+                    </article>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="commands" class="section section--commands">
         <div class="section-head" data-reveal>
           <p class="eyebrow">Command surface</p>
@@ -278,12 +335,31 @@ dedocs verify input.docx rebuilt.docx</pre>
           <h2>Install, validate, and run the loop in minutes.</h2>
         </div>
 
+        <div class="install-banner" data-reveal style="--delay: 50ms">
+          <div>
+            <p class="install-banner__label">Get started</p>
+            <h3>Clone the repo, run the tests, then open the static dossier.</h3>
+            <p>Everything public on the site is generated locally from the same repository state.</p>
+          </div>
+          <button type="button" class="install-command" id="install-command" aria-label="Copy install command">
+            <code>git clone https://github.com/jqdwdty/dedocs.git && cd dedocs</code>
+          </button>
+        </div>
+
         <div class="quickstart-grid" id="quick-start" data-reveal style="--delay: 90ms"></div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p>Static package. Static site. No hidden backend. Everything visible in the repository.</p>
+      <div class="site-footer__inner">
+        <p>Static package. Static site. No hidden backend. Everything visible in the repository.</p>
+        <nav class="site-footer__links" aria-label="Footer">
+          <a href="https://github.com/jqdwdty/dedocs">GitHub</a>
+          <a href="#playground">Playground</a>
+          <a href="#commands">Commands</a>
+          <a href="#workflow">Workflow</a>
+        </nav>
+      </div>
     </footer>
 
     <script src="./app.js"></script>

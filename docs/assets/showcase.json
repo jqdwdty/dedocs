@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-28T08:46:09.186Z",
+  "generatedAt": "2026-03-28T09:01:18.920Z",
   "package": {
     "name": "dedocs",
     "version": "0.2.0",
@@ -169,6 +169,109 @@
       "command": "dedocs decompile input.docx output.dedocs\ndedocs normalize output.dedocs\ndedocs compile output.dedocs rebuilt.docx\ndedocs verify input.docx rebuilt.docx"
     }
   ],
+  "playground": {
+    "note": "Browser-side authoring sandbox. It parses real dedocs transform syntax, previews guide-level changes, and reports touched package parts. Full package compile and exact verification still belong to the CLI.",
+    "baseParagraphs": [
+      {
+        "index": "0000",
+        "style": "Heading1",
+        "text": "Introduction"
+      },
+      {
+        "index": "0001",
+        "style": "",
+        "text": "This is the first paragraph of the introduction. It contains some text about platform governance and political advertising."
+      },
+      {
+        "index": "0002",
+        "style": "",
+        "text": "The second paragraph discusses Meta's advertising ban and its consequences for electoral transparency."
+      },
+      {
+        "index": "0003",
+        "style": "Heading1",
+        "text": "Methods"
+      },
+      {
+        "index": "0004",
+        "style": "",
+        "text": "We developed an automated monitoring system that collected 268,635 advertisements from the Meta Ad Library."
+      },
+      {
+        "index": "0005",
+        "style": "Heading1",
+        "text": "Results"
+      },
+      {
+        "index": "0006",
+        "style": "",
+        "text": "We confirmed 192 accounts as political advertisers that placed a total of 1,329 ads during the campaign period."
+      },
+      {
+        "index": "0007",
+        "style": "Heading1",
+        "text": "Discussion"
+      },
+      {
+        "index": "0008",
+        "style": "",
+        "text": "The findings document a specific failure mode of platform self-regulation."
+      }
+    ],
+    "initialAuthoring": "\\replace-text[part=\"word/document.xml\", count=\"1\"]\n<<<FIND\nplatform governance and political advertising.\nFIND\n<<<WITH\nplatform governance, political advertising, and auditability.\nWITH\n\\end{replace-text}\n\n\\format-text[part=\"\", index=\"0002\", match=\"Meta\", count=\"\", expectedText=\"The second paragraph discusses Meta's advertising ban and its consequences for electoral transparency.\", expectedStyle=\"\", bold=\"true\", italic=\"true\", underline=\"\", color=\"0F766E\", highlight=\"\", superscript=\"\", subscript=\"\"]\n\\end{format-text}\n\n\\insert-comment[part=\"\", index=\"0001\", match=\"platform governance\", count=\"\", expectedText=\"This is the first paragraph of the introduction. It contains some text about platform governance, political advertising, and auditability.\", expectedStyle=\"\", author=\"Dedocs\", date=\"\"]\n<<<TEXT\nClarify the exact policy boundary here.\nTEXT\n\\end{insert-comment}\n\n\\insert-footnote[part=\"\", index=\"0004\", match=\"268,635 advertisements\", count=\"\", expectedText=\"We developed an automated monitoring system that collected 268,635 advertisements from the Meta Ad Library.\", expectedStyle=\"\"]\n<<<TEXT\nSynthetic note inserted through the semantic layer.\nTEXT\n\\end{insert-footnote}\n\n\\insert-paragraph-after[part=\"\", index=\"0003\", style=\"\", expectedText=\"Methods\", expectedStyle=\"Heading1\"]\n<<<TEXT\nThis inserted paragraph shows how dedocs adds body text without raw XML edits.\nTEXT\n\\end{insert-paragraph-after}\n\n\\insert-paragraph-before[part=\"\", index=\"0005\", style=\"\", expectedText=\"Results\", expectedStyle=\"Heading1\"]\n<<<TEXT\nThis inserted paragraph lands before Results and stays anchored by expectations.\nTEXT\n\\end{insert-paragraph-before}\n\n\\insert-table-after[part=\"\", index=\"0003\", expectedText=\"Methods\", expectedStyle=\"Heading1\", caption=\"Table 1. Example metrics\", style=\"\", headers=\"\"]\n<<<TSV\nMetric\tValue\nAds collected\t268,635\nConfirmed advertisers\t192\nTSV\n\\end{insert-table-after}\n\n\\insert-figure-after[part=\"\", index=\"0005\", expectedText=\"Results\", expectedStyle=\"Heading1\", imagePart=\"word/media/showcase-image.png\", widthPx=\"120\", heightPx=\"90\", caption=\"Figure 1. Synthetic reference image\", altText=\"Synthetic reference image\"]\n\\end{insert-figure-after}",
+    "templates": [
+      {
+        "label": "Replace text",
+        "snippet": "\\replace-text[part=\"word/document.xml\", count=\"1\"]\n<<<FIND\nplatform governance and political advertising.\nFIND\n<<<WITH\nplatform governance, political advertising, and auditability.\nWITH\n\\end{replace-text}"
+      },
+      {
+        "label": "Format text",
+        "snippet": "\\format-text[part=\"\", index=\"0002\", match=\"Meta\", count=\"\", expectedText=\"The second paragraph discusses Meta's advertising ban and its consequences for electoral transparency.\", expectedStyle=\"\", bold=\"true\", italic=\"true\", underline=\"\", color=\"0F766E\", highlight=\"\", superscript=\"\", subscript=\"\"]\n\\end{format-text}"
+      },
+      {
+        "label": "Insert comment",
+        "snippet": "\\insert-comment[part=\"\", index=\"0001\", match=\"platform governance\", count=\"\", expectedText=\"This is the first paragraph of the introduction. It contains some text about platform governance and political advertising.\", expectedStyle=\"\", author=\"Dedocs\", date=\"\"]\n<<<TEXT\nClarify the exact policy boundary here.\nTEXT\n\\end{insert-comment}"
+      },
+      {
+        "label": "Insert paragraph",
+        "snippet": "\\insert-paragraph-after[part=\"\", index=\"0003\", style=\"\", expectedText=\"Methods\", expectedStyle=\"Heading1\"]\n<<<TEXT\nThis inserted paragraph shows how dedocs adds body text without raw XML edits.\nTEXT\n\\end{insert-paragraph-after}"
+      },
+      {
+        "label": "Insert table",
+        "snippet": "\\insert-table-after[part=\"\", index=\"0003\", expectedText=\"Methods\", expectedStyle=\"Heading1\", caption=\"Table 1. Example metrics\", style=\"\", headers=\"\"]\n<<<TSV\nMetric\tValue\nAds collected\t268,635\nConfirmed advertisers\t192\nTSV\n\\end{insert-table-after}"
+      },
+      {
+        "label": "Insert figure",
+        "snippet": "\\insert-figure-after[part=\"\", index=\"0005\", expectedText=\"Results\", expectedStyle=\"Heading1\", imagePart=\"word/media/showcase-image.png\", widthPx=\"120\", heightPx=\"90\", caption=\"Figure 1. Synthetic reference image\", altText=\"Synthetic reference image\"]\n\\end{insert-figure-after}"
+      }
+    ],
+    "expectedChangedParts": [
+      {
+        "path": "[Content_Types].xml",
+        "type": "content"
+      },
+      {
+        "path": "word/_rels/document.xml.rels",
+        "type": "content"
+      },
+      {
+        "path": "word/comments.xml",
+        "type": "missing"
+      },
+      {
+        "path": "word/document.xml",
+        "type": "content"
+      },
+      {
+        "path": "word/footnotes.xml",
+        "type": "missing"
+      },
+      {
+        "path": "word/media/showcase-image.png",
+        "type": "missing"
+      }
+    ]
+  },
   "sample": {
     "file": {
       "name": "sample-report.docx",

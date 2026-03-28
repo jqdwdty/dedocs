@@ -33,6 +33,9 @@ describe('site build', () => {
     assert.equal(showcase.sample.parts.length > 0, true);
     assert.equal(showcase.transforms.length >= 10, true);
     assert.equal(showcase.commands.length >= 4, true);
+    assert.equal(showcase.playground.baseParagraphs.length > 0, true);
+    assert.equal(showcase.playground.templates.length >= 4, true);
+    assert.match(showcase.playground.initialAuthoring, /\\replace-text/);
     assert.match(showcase.sample.guidePreview.join('\n'), /Introduction/);
   });
 });
