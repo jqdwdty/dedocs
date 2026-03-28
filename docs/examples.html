@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examples - dedocs</title>
+  <meta name="description" content="Inspect the public sample files, changed package parts, and guide previews used by dedocs.">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="examples">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="./index.html" class="nav-logo" aria-label="dedocs home">ded<span>ocs</span></a>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <div class="nav-links">
+        <a href="./index.html">Home</a>
+        <a href="./playground.html">Playground</a>
+        <a href="./examples.html">Examples</a>
+        <a href="./cli.html">CLI</a>
+        <a href="./format.html">Format</a>
+        <a href="./vision.html">Vision</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="container">
+      <section class="section" style="border-top:none" aria-label="Examples intro">
+        <div class="section-label">Examples</div>
+        <h1>Public sample files</h1>
+        <p class="section-intro">The repo ships a sample `.docx`, its `dedocs` source, and an authored variant. This page shows the same artifacts the static site is built from.</p>
+        <div class="tag-row" id="examplesTags"></div>
+      </section>
+
+      <section class="section" aria-label="Example tabs">
+        <div class="tabs">
+          <button type="button" class="tab-btn active" data-tab="sample">Sample report</button>
+          <button type="button" class="tab-btn" data-tab="authoring">Authoring example</button>
+          <button type="button" class="tab-btn" data-tab="package">Package map</button>
+        </div>
+
+        <div class="tab-panel active" data-panel="sample">
+          <div class="detail-grid">
+            <div class="detail-pane detail-pane--code">
+              <div class="pane-label">Sample .dedocs</div>
+              <pre id="examplesSampleCode">Loading sample...</pre>
+            </div>
+            <div class="detail-pane detail-pane--paper">
+              <div class="pane-label">Guide preview</div>
+              <div class="word-page">
+                <div class="word-body" id="examplesSamplePreview">Loading preview...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-panel="authoring">
+          <div class="detail-grid">
+            <div class="detail-pane detail-pane--code">
+              <div class="pane-label">Authoring commands</div>
+              <pre id="examplesAuthoringCode">Loading authoring...</pre>
+            </div>
+            <div class="detail-pane detail-pane--paper">
+              <div class="pane-label">Guide after transforms</div>
+              <div class="word-page">
+                <div class="word-body" id="examplesAuthoringPreview">Loading transformed preview...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-panel="package">
+          <div class="docs-grid">
+            <div class="docs-main">
+              <div class="card">
+                <div class="pane-label">Package parts</div>
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Path</th>
+                        <th>Type</th>
+                        <th>Encoding</th>
+                        <th>Bytes</th>
+                      </tr>
+                    </thead>
+                    <tbody id="examplesPartsBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="docs-side">
+              <div class="card">
+                <div class="pane-label">Changed parts</div>
+                <ul class="delta-list" id="examplesChangedParts"></ul>
+              </div>
+              <div class="card">
+                <div class="pane-label">Downloads</div>
+                <ul class="link-list" id="examplesDownloads"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">ded<span>ocs</span></div>
+      <div class="footer-links">
+        <a href="./playground.html">Playground</a>
+        <a href="./cli.html">CLI</a>
+        <a href="./format.html">Format</a>
+      </div>
+    </div>
+    <div class="footer-copy">These are generated from the same repository state as the homepage.</div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

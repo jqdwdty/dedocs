@@ -1,367 +1,276 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dedocs</title>
-    <meta name="description" content="Dedocs is a single-file, package-exact, AI-native source format for .docx.">
-    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="./styles.css">
-  </head>
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <div class="page-noise" aria-hidden="true"></div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dedocs - Single-file source for exact .docx packages</title>
+  <meta name="description" content="dedocs turns a .docx package into one inspectable text file with exact package fidelity and explicit semantic commands.">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="home">
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="masthead">
-      <div class="masthead__inner">
-        <div class="brand-block">
-          <a class="brand" href="#top">Dedocs</a>
-          <p class="brand-block__tag">Single-file source for exact .docx packages</p>
-        </div>
-        <nav class="site-nav" aria-label="Primary">
-          <a href="#what">Why</a>
-          <a href="#architecture">Architecture</a>
-          <a href="#showcase">Showcase</a>
-          <a href="#playground">Playground</a>
-          <a href="#commands">Commands</a>
-          <a href="#workflow">Workflow</a>
-        </nav>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="./index.html" class="nav-logo" aria-label="dedocs home">ded<span>ocs</span></a>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <div class="nav-links">
+        <a href="./index.html">Home</a>
+        <a href="./playground.html">Playground</a>
+        <a href="./examples.html">Examples</a>
+        <a href="./cli.html">CLI</a>
+        <a href="./format.html">Format</a>
+        <a href="./vision.html">Vision</a>
       </div>
-    </header>
+    </div>
+  </nav>
 
-    <main id="main">
-      <section id="top" class="hero">
-        <div class="hero__copy" data-reveal style="--delay: 40ms">
-          <p class="eyebrow">Package-exact source, built for AI</p>
-          <h1>One readable document file. Exact OOXML underneath.</h1>
-          <p class="lede">
-            Dedocs turns a Word package into a single inspectable text artifact,
-            keeps package fidelity as the source of truth, and layers explicit
-            authoring commands on top so AI and humans can edit with intent.
-          </p>
-          <div class="hero__proof" id="hero-proof"></div>
-          <div class="hero__actions">
-            <a class="button button--primary" href="#playground">Open playground</a>
-            <a class="button button--ghost" href="https://github.com/jqdwdty/dedocs">View repository</a>
+  <main id="main">
+    <div class="container">
+      <section class="hero" aria-label="Introduction">
+        <div class="hero-eyebrow reveal">package-exact · static site · MIT license</div>
+        <h1 class="hero-title reveal reveal-delay-1">ded<span>ocs</span></h1>
+        <p class="hero-desc reveal reveal-delay-2">
+          Single-file source for exact `.docx` packages. One inspectable text artifact for the whole package,
+          explicit semantic commands on top, exact OOXML underneath.
+        </p>
+        <div class="hero-actions reveal reveal-delay-3">
+          <a href="./playground.html" class="btn btn-primary">Try the playground</a>
+          <a href="https://github.com/jqdwdty/dedocs" class="btn btn-secondary">View on GitHub</a>
+        </div>
+
+        <div class="hero-demo reveal reveal-delay-4" aria-label="Live dedocs demo">
+          <div class="hero-demo-bar">
+            <span class="hero-demo-dot"></span>
+            <span class="hero-demo-dot"></span>
+            <span class="hero-demo-dot"></span>
+            <span class="hero-demo-title">sample-report.dedocs -> document preview</span>
           </div>
-        </div>
-
-        <aside class="hero__panel" data-reveal style="--delay: 140ms">
-          <div class="panel-head">
-            <p class="panel-label">Live sample dossier</p>
-            <div class="panel-meta" id="hero-meta"></div>
-          </div>
-          <pre class="hero__snippet" id="hero-snippet">Loading package preview…</pre>
-        </aside>
-      </section>
-
-      <section class="section section--bridge">
-        <div class="workflow-band" id="workflow-band" data-reveal></div>
-      </section>
-
-      <section id="what" class="section section--why">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">Why it exists</p>
-          <h2>OOXML already solves fidelity. It does not solve workflow.</h2>
-          <p class="section-note">
-            Dedocs exists for builders who want exactness, inspectability,
-            version control, and a better prompt surface than a zip archive.
-          </p>
-        </div>
-
-        <div class="comparison-band" data-reveal style="--delay: 80ms">
-          <article class="comparison-band__item">
-            <p class="comparison-band__label">Raw .docx</p>
-            <h3>Opaque package</h3>
-            <p>Correct for Word, awkward for review, diffing, or AI context.</p>
-          </article>
-          <article class="comparison-band__item">
-            <p class="comparison-band__label">Unpacked OOXML</p>
-            <h3>Many exact files</h3>
-            <p>Exact but noisy. You inherit archive plumbing and fragmented edits.</p>
-          </article>
-          <article class="comparison-band__item comparison-band__item--accent">
-            <p class="comparison-band__label">Dedocs</p>
-            <h3>One inspectable source</h3>
-            <p>Exact package core, generated guides, semantic transforms, and static proof artifacts.</p>
-          </article>
-        </div>
-
-        <div class="principle-strip" id="principles" data-reveal style="--delay: 140ms"></div>
-      </section>
-
-      <section class="section section--use-cases">
-        <div class="section-grid">
-          <div class="section-head" data-reveal>
-            <p class="eyebrow">What it is for</p>
-            <h2>Use it when raw OOXML is exact enough, but not workable enough.</h2>
-            <p class="section-note">
-              The point is not to replace OOXML’s authority. The point is to
-              give humans and AI a safer, reviewable operating surface on top of it.
-            </p>
-          </div>
-          <div class="use-case-stack" id="use-cases" data-reveal style="--delay: 90ms"></div>
-        </div>
-      </section>
-
-      <section id="architecture" class="section section--architecture">
-        <div class="section-grid">
-          <div class="section-head" data-reveal>
-            <p class="eyebrow">Architecture</p>
-            <h2>Three layers, one source of truth.</h2>
-          </div>
-
-          <div class="layer-stack" data-reveal style="--delay: 90ms">
-            <article class="layer-stack__layer">
-              <span class="layer-stack__index">01</span>
-              <div>
-                <h3>Core package</h3>
-                <p>Every package part is explicit. XML stays UTF-8. Binary stays base64. Untouched content remains exact.</p>
-              </div>
-            </article>
-            <article class="layer-stack__layer">
-              <span class="layer-stack__index">02</span>
-              <div>
-                <h3>Generated guides</h3>
-                <p>Structure summaries help orientation, but they are never promoted to the source of truth.</p>
-              </div>
-            </article>
-            <article class="layer-stack__layer">
-              <span class="layer-stack__index">03</span>
-              <div>
-                <h3>Semantic transforms</h3>
-                <p>Authoring commands compile onto exact package parts and fail loudly when anchors drift.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="guarantee-sheet" data-reveal style="--delay: 150ms">
-          <div>
-            <p class="eyebrow">Fidelity boundary</p>
-            <h3>Package exactness, not zip trivia.</h3>
-          </div>
-          <ul id="guarantees-list"></ul>
-        </div>
-      </section>
-
-      <section class="section section--demo">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">One-minute loop</p>
-          <h2>The actual working cycle is short and inspectable.</h2>
-          <p class="section-note">
-            This is the operational rhythm the page needs to make obvious:
-            decompile, inspect, edit, normalize, compile, verify.
-          </p>
-        </div>
-
-        <div class="demo-grid" id="command-examples" data-reveal style="--delay: 90ms"></div>
-      </section>
-
-      <section id="showcase" class="section section--showcase">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">Live showcase</p>
-          <h2>The page is a dossier generated from the repo itself.</h2>
-          <p class="section-note">
-            Downloads, proofs, and snippets come from the same local build step
-            that regenerates the static site.
-          </p>
-        </div>
-
-        <div class="metric-ribbon" id="metrics" data-reveal style="--delay: 80ms"></div>
-
-        <div class="showcase-grid">
-          <div class="viewer-pane" data-reveal style="--delay: 120ms">
-            <div class="viewer-tabs" id="viewer-tabs" role="tablist" aria-label="Showcase views"></div>
-            <div class="viewer-frame">
-              <p class="viewer-frame__title" id="viewer-title"></p>
-              <pre id="viewer-code">Loading showcase…</pre>
+          <div class="hero-demo-panes">
+            <div class="hero-demo-code">
+              <div class="pane-label">dedocs source</div>
+              <pre id="heroCode">Loading sample...</pre>
             </div>
-          </div>
-
-          <aside class="showcase-side" data-reveal style="--delay: 180ms">
-            <section class="sheet">
-              <div class="sheet__head">
-                <h3>Package map</h3>
-                <p>Every part stays visible.</p>
-              </div>
-              <div class="table-wrap">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Path</th>
-                      <th>Type</th>
-                      <th>Encoding</th>
-                      <th>Bytes</th>
-                    </tr>
-                  </thead>
-                  <tbody id="parts-body"></tbody>
-                </table>
-              </div>
-            </section>
-
-            <section class="sheet">
-              <div class="sheet__head">
-                <h3>Compile footprint</h3>
-                <p>These are the parts touched by the semantic demo.</p>
-              </div>
-              <ul class="delta-list" id="changed-parts"></ul>
-            </section>
-          </aside>
-        </div>
-      </section>
-
-      <section id="playground" class="section section--playground">
-        <div class="section-grid section-grid--playground">
-          <div class="section-head" data-reveal>
-            <p class="eyebrow">Playground</p>
-            <h2>Edit real authoring commands in the browser.</h2>
-            <p class="section-note">
-              This is a static browser-side sandbox for the semantic layer.
-              It parses the same command syntax shown in the sample `.dedocs`
-              file, previews guide-level effects, and tells you which package
-              parts would be touched before you ever run the CLI.
-            </p>
-            <p class="playground-note" id="playground-note"></p>
-          </div>
-
-          <div class="playground-shell" data-reveal style="--delay: 90ms">
-            <div class="playground-toolbar">
-              <div class="playground-toolbar__group" id="playground-templates"></div>
-              <div class="playground-toolbar__group">
-                <button type="button" class="tool-button" id="playground-reset">Reset sample</button>
-                <button type="button" class="tool-button" id="playground-copy">Copy commands</button>
-              </div>
-            </div>
-
-            <div class="playground-grid">
-              <label class="playground-pane playground-pane--editor">
-                <span class="playground-pane__label">Authoring commands</span>
-                <textarea id="playground-input" spellcheck="false" aria-label="Dedocs authoring commands"></textarea>
-              </label>
-
-              <div class="playground-stack">
-                <section class="playground-pane">
-                  <div class="playground-pane__head">
-                    <span class="playground-pane__label">Guide preview</span>
-                    <div class="playground-status" id="playground-status"></div>
-                  </div>
-                  <div class="playground-preview" id="playground-preview"></div>
-                </section>
-
-                <section class="playground-pane">
-                  <div class="playground-meta">
-                    <article class="playground-meta__card">
-                      <span class="playground-pane__label">Touched parts</span>
-                      <ul class="delta-list delta-list--compact" id="playground-parts"></ul>
-                    </article>
-                    <article class="playground-meta__card">
-                      <span class="playground-pane__label">Validation</span>
-                      <ul class="playground-errors" id="playground-errors"></ul>
-                    </article>
-                  </div>
-                </section>
+            <div class="hero-demo-preview">
+              <div class="pane-label">document view</div>
+              <div class="word-page">
+                <div class="word-body" id="heroPreview">Loading preview...</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="commands" class="section section--commands">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">Command surface</p>
-          <h2>Readable authoring, explicit operations.</h2>
-          <p class="section-note">
-            The command layer is intentionally strict: operations are visible,
-            scoped, and inspectable before compilation.
-          </p>
-        </div>
-
-        <div class="command-grid" data-reveal style="--delay: 90ms">
-          <section class="command-column">
-            <div class="sheet__head">
-              <h3>CLI</h3>
-              <p>Core package operations.</p>
-            </div>
-            <div id="commands-list" class="command-list"></div>
-          </section>
-
-          <section class="command-column">
-            <div class="sheet__head">
-              <h3>Semantic transforms</h3>
-              <p>Intent-level edits on top of the exact core.</p>
-            </div>
-            <div id="transforms-list" class="command-list"></div>
-          </section>
-        </div>
-      </section>
-
-      <section id="workflow" class="section section--workflow">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">Workflow</p>
-          <h2>Decompile, inspect, edit, normalize, compile, verify.</h2>
-        </div>
-
-        <ol class="workflow-rail" data-reveal style="--delay: 80ms">
-          <li>
-            <span>01</span>
-            <h3>Decompile</h3>
-            <pre>dedocs decompile input.docx output.dedocs</pre>
-          </li>
-          <li>
-            <span>02</span>
-            <h3>Edit</h3>
-            <pre>guides, transforms, or raw package payloads</pre>
-          </li>
-          <li>
-            <span>03</span>
-            <h3>Normalize</h3>
-            <pre>dedocs normalize output.dedocs</pre>
-          </li>
-          <li>
-            <span>04</span>
-            <h3>Compile + verify</h3>
-            <pre>dedocs compile output.dedocs rebuilt.docx
-dedocs verify input.docx rebuilt.docx</pre>
-          </li>
-        </ol>
-
-        <div class="download-dock" id="downloads-list" data-reveal style="--delay: 140ms"></div>
-      </section>
-
-      <section class="section section--quick-start">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">Quick start</p>
-          <h2>Install, validate, and run the loop in minutes.</h2>
-        </div>
-
-        <div class="install-banner" data-reveal style="--delay: 50ms">
-          <div>
-            <p class="install-banner__label">Get started</p>
-            <h3>Clone the repo, run the tests, then open the static dossier.</h3>
-            <p>Everything public on the site is generated locally from the same repository state.</p>
+      <section class="section reveal" aria-label="How it works">
+        <div class="section-label">How it works</div>
+        <h2>Your document, three ways</h2>
+        <p class="section-intro">Word remains the source ecosystem. dedocs gives you a text-native working surface. Git and AI get a single file instead of a zip archive.</p>
+        <div class="workflow-diagram">
+          <div class="workflow-node reveal reveal-delay-1">
+            <span class="workflow-node-ext">.docx</span>
+            <span class="workflow-node-label">Word package</span>
           </div>
-          <button type="button" class="install-command" id="install-command" aria-label="Copy install command">
-            <code>git clone https://github.com/jqdwdty/dedocs.git && cd dedocs</code>
-          </button>
+          <span class="workflow-arrow" aria-hidden="true">&harr;</span>
+          <div class="workflow-node reveal reveal-delay-2">
+            <span class="workflow-node-ext">.dedocs</span>
+            <span class="workflow-node-label">single-file source</span>
+          </div>
+          <span class="workflow-arrow" aria-hidden="true">&harr;</span>
+          <div class="workflow-node reveal reveal-delay-3">
+            <span class="workflow-node-ext">git + AI</span>
+            <span class="workflow-node-label">review and editing surface</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="One-minute demo">
+        <div class="section-label reveal">One-minute demo</div>
+        <h2 class="reveal">Make real document edits with explicit commands</h2>
+
+        <div class="code-output reveal">
+          <div class="code-output-code">
+            <div class="code-output-label">Command</div>
+            <pre><code>\replace-text[part="word/document.xml", count="1"]
+<<<FIND
+platform governance and political advertising.
+FIND
+<<<WITH
+platform governance, political advertising, and auditability.
+WITH
+\end{replace-text}</code></pre>
+          </div>
+          <div class="code-output-result word-page">
+            <div class="result-label">Guide-level effect</div>
+            <div class="word-body">
+              <p>This is the first paragraph of the introduction. It contains some text about <span class="word-del">platform governance and political advertising.</span><span class="word-ins">platform governance, political advertising, and auditability.</span></p>
+            </div>
+          </div>
         </div>
 
-        <div class="quickstart-grid" id="quick-start" data-reveal style="--delay: 90ms"></div>
-      </section>
-    </main>
+        <div class="code-output reveal">
+          <div class="code-output-code">
+            <div class="code-output-label">Command</div>
+            <pre><code>\insert-comment[part="", index="0001", match="platform governance", count="", expectedText="This is the first paragraph of the introduction. It contains some text about platform governance and political advertising.", expectedStyle="", author="Dedocs", date=""]
+<<<TEXT
+Clarify the exact policy boundary here.
+TEXT
+\end{insert-comment}</code></pre>
+          </div>
+          <div class="code-output-result word-page">
+            <div class="result-label">What changes in the package</div>
+            <div class="word-body">
+              <p>...text about platform governance <span class="word-callout">comment: Clarify the exact policy boundary here.</span></p>
+              <p><strong>Touched parts:</strong> <code>word/document.xml</code>, <code>word/comments.xml</code>, <code>word/_rels/document.xml.rels</code>, <code>[Content_Types].xml</code></p>
+            </div>
+          </div>
+        </div>
 
-    <footer class="site-footer">
-      <div class="site-footer__inner">
-        <p>Static package. Static site. No hidden backend. Everything visible in the repository.</p>
-        <nav class="site-footer__links" aria-label="Footer">
-          <a href="https://github.com/jqdwdty/dedocs">GitHub</a>
-          <a href="#playground">Playground</a>
-          <a href="#commands">Commands</a>
-          <a href="#workflow">Workflow</a>
-        </nav>
+        <div class="code-output reveal">
+          <div class="code-output-code">
+            <div class="code-output-label">Command</div>
+            <pre><code>\insert-table-after[part="", index="0003", expectedText="Methods", expectedStyle="Heading1", caption="Table 1. Example metrics", style="", headers=""]
+<<<TSV
+Metric    Value
+Ads collected    268,635
+Confirmed advertisers    192
+TSV
+\end{insert-table-after}</code></pre>
+          </div>
+          <div class="code-output-result word-page">
+            <div class="result-label">Document preview</div>
+            <div class="word-body">
+              <p><strong>Table 1. Example metrics</strong></p>
+              <table class="word-table">
+                <thead>
+                  <tr><th>Metric</th><th>Value</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Ads collected</td><td>268,635</td></tr>
+                  <tr><td>Confirmed advertisers</td><td>192</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="The format">
+        <div class="section-label reveal">The format</div>
+        <h2 class="reveal">Every .docx becomes one readable source file</h2>
+        <p class="section-intro reveal">The exact package core stays intact. Guides help orientation. Semantic transforms stay explicit and inspectable.</p>
+
+        <div class="detail-grid reveal">
+          <div class="detail-pane detail-pane--code">
+            <div class="pane-label">dedocs excerpt</div>
+            <pre id="formatCode">Loading format...</pre>
+          </div>
+          <div class="detail-pane detail-pane--paper">
+            <div class="pane-label">Guide preview</div>
+            <div class="word-page">
+              <div class="word-body" id="formatPreview">Loading guide...</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="reveal" style="margin-top:1rem">
+          <a href="./format.html">Read the full format overview &rarr;</a>
+        </p>
+      </section>
+
+      <section class="section" aria-label="Features">
+        <div class="section-label reveal">Everything you need</div>
+        <h2 class="reveal">Exact core, readable commands, static proof</h2>
+
+        <div class="feature-grid reveal">
+          <div class="feature-cell">
+            <span class="feature-tag">Core</span>
+            <h3>Package exactness</h3>
+            <p>Untouched package parts round-trip byte-for-byte. XML stays UTF-8. Binary stays base64.</p>
+          </div>
+          <div class="feature-cell">
+            <span class="feature-tag">Guides</span>
+            <h3>Readable orientation</h3>
+            <p>Generated paragraph guides keep humans and AI oriented without becoming the source of truth.</p>
+          </div>
+          <div class="feature-cell">
+            <span class="feature-tag">Transforms</span>
+            <h3>Strict semantic edits</h3>
+            <p>Commands are visible, scoped, and fail loudly when anchors drift or expectations stop matching.</p>
+          </div>
+          <div class="feature-cell">
+            <span class="feature-tag">Verification</span>
+            <h3>Part-by-part proof</h3>
+            <p>Compare original and rebuilt `.docx` packages directly and see exactly which parts changed.</p>
+          </div>
+          <div class="feature-cell">
+            <span class="feature-tag">Prompt surface</span>
+            <h3>AI-native working file</h3>
+            <p>Give an agent one source file instead of a zip archive plus an OOXML directory tree.</p>
+          </div>
+          <div class="feature-cell">
+            <span class="feature-tag">Static docs</span>
+            <h3>No hidden backend</h3>
+            <p>The site, samples, and downloads are generated from the repository itself and served as static files.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="AI ready">
+        <div class="section-label reveal">AI-ready</div>
+        <h2 class="reveal">Built to be inspectable before it is magical</h2>
+        <div class="docs-grid reveal">
+          <div class="docs-main">
+            <div class="card">
+              <h3>Why agents can work with it</h3>
+              <p>The file is plain text, bounded, explicit, and deterministic. Guides and transforms reduce the amount of raw OOXML an agent has to reason about.</p>
+            </div>
+            <div class="card">
+              <h3>Where the boundary stays hard</h3>
+              <p>The browser can preview transform effects. Exact package compile and verification still run in the CLI, where the real `.docx` tooling belongs.</p>
+            </div>
+          </div>
+          <div class="docs-side">
+            <div class="card">
+              <h3>Current semantic surface</h3>
+              <ul class="link-list" id="homeTransforms"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Get started">
+        <div class="install-block reveal">
+          <div class="section-label">Get started</div>
+          <h2>Clone the repo and run the proof loop</h2>
+          <div class="install-command">
+            <code id="installCommandText">git clone https://github.com/jqdwdty/dedocs.git &amp;&amp; cd dedocs</code>
+            <button type="button" class="btn btn-primary btn-small" data-copy="#installCommandText">Copy</button>
+          </div>
+          <p class="install-detail">Then run <code>npm test</code> and <code>npm run build:site</code>. Everything on this site is served from committed static files in <code>docs/</code>.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">ded<span>ocs</span></div>
+      <div class="footer-links">
+        <a href="https://github.com/jqdwdty/dedocs">GitHub</a>
+        <a href="./playground.html">Playground</a>
+        <a href="./examples.html">Examples</a>
+        <a href="./cli.html">CLI</a>
+        <a href="./format.html">Format</a>
+        <a href="./vision.html">Vision</a>
       </div>
-    </footer>
+    </div>
+    <div class="footer-copy">Static package. Static site. Exact document core.</div>
+  </footer>
 
-    <script src="./app.js"></script>
-  </body>
-  </html>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playground - dedocs</title>
+  <meta name="description" content="Edit dedocs authoring commands in the browser and preview guide-level effects.">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="playground">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="./index.html" class="nav-logo" aria-label="dedocs home">ded<span>ocs</span></a>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <div class="nav-links">
+        <a href="./index.html">Home</a>
+        <a href="./playground.html">Playground</a>
+        <a href="./examples.html">Examples</a>
+        <a href="./cli.html">CLI</a>
+        <a href="./format.html">Format</a>
+        <a href="./vision.html">Vision</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="container">
+      <section class="hero" aria-label="Playground introduction">
+        <div class="hero-eyebrow reveal">Static browser sandbox</div>
+        <h1 class="hero-title reveal reveal-delay-1">Playground</h1>
+        <p class="hero-desc reveal reveal-delay-2">
+          Edit real `dedocs` authoring commands in the browser, preview guide-level changes,
+          and see which package parts would be touched before you run the CLI.
+        </p>
+      </section>
+
+      <section class="section" aria-label="Playground editor">
+        <div class="playground-shell reveal">
+          <div class="playground-toolbar">
+            <div class="toolbar-group" id="templateButtons"></div>
+            <div class="toolbar-group">
+              <button type="button" class="btn btn-secondary btn-small" id="resetPlayground">Reset sample</button>
+              <button type="button" class="btn btn-secondary btn-small" id="copyPlayground">Copy commands</button>
+            </div>
+          </div>
+
+          <div class="playground-layout">
+            <div class="playground-panel playground-panel--editor">
+              <div class="playground-panel-head">
+                <span class="pane-label">Authoring commands</span>
+              </div>
+              <div class="playground-editor-frame">
+                <textarea id="playgroundInput" spellcheck="false" aria-label="dedocs authoring commands"></textarea>
+              </div>
+            </div>
+
+            <div class="playground-panel playground-panel--preview">
+              <div class="playground-panel-head">
+                <span class="pane-label">Guide preview</span>
+                <div class="playground-status" id="playgroundStatus"></div>
+              </div>
+              <div class="playground-preview-wrap">
+                <div class="preview-lines" id="playgroundPreview"></div>
+                <div class="playground-meta-grid">
+                  <div class="card">
+                    <div class="pane-label">Touched parts</div>
+                    <ul class="delta-list" id="playgroundParts"></ul>
+                  </div>
+                  <div class="card">
+                    <div class="pane-label">Validation</div>
+                    <ul class="playground-errors" id="playgroundErrors"></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="playground-note" id="playgroundNote"></p>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Playground boundary">
+        <div class="section-label reveal">What this page is doing</div>
+        <h2 class="reveal">Real syntax, honest boundary</h2>
+        <div class="docs-grid reveal">
+          <div class="docs-main">
+            <div class="card">
+              <h3>What runs here</h3>
+              <p>The browser parses transform blocks, applies them to the generated paragraph guide, and shows touched package parts plus anchor errors.</p>
+            </div>
+            <div class="card">
+              <h3>What still belongs to the CLI</h3>
+              <p>Exact package compilation, zip writing, and package-equality verification stay outside the browser. That boundary is intentional.</p>
+            </div>
+          </div>
+          <div class="docs-side">
+            <div class="card">
+              <h3>Related commands</h3>
+              <ul class="link-list">
+                <li><a href="./cli.html#decompile">dedocs decompile</a></li>
+                <li><a href="./cli.html#normalize">dedocs normalize</a></li>
+                <li><a href="./cli.html#compile">dedocs compile</a></li>
+                <li><a href="./cli.html#verify">dedocs verify</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">ded<span>ocs</span></div>
+      <div class="footer-links">
+        <a href="https://github.com/jqdwdty/dedocs">GitHub</a>
+        <a href="./examples.html">Examples</a>
+        <a href="./cli.html">CLI</a>
+        <a href="./format.html">Format</a>
+      </div>
+    </div>
+    <div class="footer-copy">The file stays local. The browser stays honest.</div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

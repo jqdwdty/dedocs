@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vision - dedocs</title>
+  <meta name="description" content="Why dedocs exists and what workflows it is designed to support.">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="vision">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="./index.html" class="nav-logo" aria-label="dedocs home">ded<span>ocs</span></a>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <div class="nav-links">
+        <a href="./index.html">Home</a>
+        <a href="./playground.html">Playground</a>
+        <a href="./examples.html">Examples</a>
+        <a href="./cli.html">CLI</a>
+        <a href="./format.html">Format</a>
+        <a href="./vision.html">Vision</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="container">
+      <section class="section" style="border-top:none" aria-label="Vision intro">
+        <div class="section-label">Vision</div>
+        <h1>Why dedocs exists</h1>
+        <p class="section-intro">OOXML already solves fidelity. dedocs exists because fidelity alone does not give humans or AI a good working surface.</p>
+      </section>
+
+      <section class="section" aria-label="Workflow one">
+        <div class="section-label reveal">Workflow 1</div>
+        <h2 class="reveal">AI-first editing with an exact core</h2>
+        <div class="docs-main reveal">
+          <div class="vision-step">
+            <div class="vision-step-num">1</div>
+            <div class="vision-step-content">
+              <h4>Decompile the package</h4>
+              <pre><code>dedocs decompile report.docx report.dedocs</code></pre>
+              <p>The zip archive becomes one text file with explicit parts, generated guides, and room for semantic transforms.</p>
+            </div>
+          </div>
+          <div class="vision-step">
+            <div class="vision-step-num">2</div>
+            <div class="vision-step-content">
+              <h4>Let an agent reason over one file</h4>
+              <pre><code>\replace-text[part="word/document.xml", count="1"]
+...
+\insert-comment[...]
+...
+\end{insert-comment}</code></pre>
+              <p>The agent edits an inspectable text artifact instead of juggling an archive plus a directory tree of OOXML parts.</p>
+            </div>
+          </div>
+          <div class="vision-step">
+            <div class="vision-step-num">3</div>
+            <div class="vision-step-content">
+              <h4>Compile and verify</h4>
+              <pre><code>dedocs compile report.dedocs rebuilt.docx
+dedocs verify report.docx rebuilt.docx</code></pre>
+              <p>The rebuilt document is judged against the real package, not against a vague promise of readability.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Workflow two">
+        <div class="section-label reveal">Workflow 2</div>
+        <h2 class="reveal">Collaboration without archive churn</h2>
+        <div class="workflow-diagram reveal">
+          <div class="workflow-node">
+            <span class="workflow-node-ext">Word</span>
+            <span class="workflow-node-label">collaborator edits</span>
+          </div>
+          <span class="workflow-arrow">&rarr;</span>
+          <div class="workflow-node">
+            <span class="workflow-node-ext">dedocs</span>
+            <span class="workflow-node-label">one text artifact</span>
+          </div>
+          <span class="workflow-arrow">&rarr;</span>
+          <div class="workflow-node">
+            <span class="workflow-node-ext">git</span>
+            <span class="workflow-node-label">reviewable diffs</span>
+          </div>
+        </div>
+        <div class="card reveal" style="margin-top:1.2rem">
+          <p>Unpacked OOXML gives you exactness but not a stable human workflow. dedocs turns that exact package into a file that can actually move through review, prompts, and version control.</p>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Workflow three">
+        <div class="section-label reveal">Workflow 3</div>
+        <h2 class="reveal">Static proof instead of hidden tooling</h2>
+        <div class="docs-grid reveal">
+          <div class="docs-main">
+            <div class="card">
+              <h3>Generated site</h3>
+              <p>The public site, sample files, and downloads are emitted from the repository state itself.</p>
+            </div>
+            <div class="card">
+              <h3>Inspectable examples</h3>
+              <p>Anyone can download the sample `.docx`, inspect the `.dedocs`, rebuild it, and check the same package-level guarantees.</p>
+            </div>
+          </div>
+          <div class="docs-side">
+            <div class="card">
+              <h3>Non-goal</h3>
+              <p>dedocs does not preserve zip trivia like timestamps or compression metadata. The fidelity target is the actual document package.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">ded<span>ocs</span></div>
+      <div class="footer-links">
+        <a href="./playground.html">Playground</a>
+        <a href="./examples.html">Examples</a>
+        <a href="./cli.html">CLI</a>
+        <a href="./format.html">Format</a>
+      </div>
+    </div>
+    <div class="footer-copy">Readable because the layers stay separate. Trustworthy because the core stays exact.</div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

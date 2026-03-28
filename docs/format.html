@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Format - dedocs</title>
+  <meta name="description" content="Format overview for the dedocs core, guides, and transforms.">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="format">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="./index.html" class="nav-logo" aria-label="dedocs home">ded<span>ocs</span></a>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <div class="nav-links">
+        <a href="./index.html">Home</a>
+        <a href="./playground.html">Playground</a>
+        <a href="./examples.html">Examples</a>
+        <a href="./cli.html">CLI</a>
+        <a href="./format.html">Format</a>
+        <a href="./vision.html">Vision</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="container">
+      <section class="section" style="border-top:none" aria-label="Format intro">
+        <div class="section-label">Format</div>
+        <h1>Core package, guides, transforms</h1>
+        <p class="section-intro">dedocs is layered on purpose. The exact package core stays authoritative. Guides help orientation. Transforms are readable commands on top of that core.</p>
+      </section>
+
+      <section class="section" aria-label="Shape">
+        <div class="spec-entry">
+          <h2>Shape of a file</h2>
+          <p>The top-level file starts with one `\dedocs[...]` header, then optional guide blocks, optional transform blocks, and finally the explicit package parts.</p>
+          <pre id="formatShape">Loading format shape...</pre>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Core layer">
+        <div class="spec-entry">
+          <h2>1. Core package</h2>
+          <p>Every package part is present. UTF-8 parts stay readable. Binary parts stay base64. Untouched content is preserved exactly when the package is rebuilt.</p>
+          <pre><code>\part[path="word/document.xml", mediaType="application/xml", encoding="utf8", bytes="...", sha256="...", boundary="..."]
+...
+\end{part}</code></pre>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Guide layer">
+        <div class="spec-entry">
+          <h2>2. Guide layer</h2>
+          <p>Guides are generated, never authoritative. They exist to help humans and AI orient quickly without scanning raw OOXML first.</p>
+          <pre><code>\guide[name="document-paragraphs", part="word/document.xml", format="paragraphs", boundary="..."]
+\p[index="0000", style="Heading1"] Introduction
+\p[index="0001"] This is the first paragraph of the introduction.
+\end{guide}</code></pre>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Transform layer">
+        <div class="spec-entry">
+          <h2>3. Transform layer</h2>
+          <p>Transforms are the human-readable semantic commands. They compile onto exact package parts and fail loudly when anchors drift.</p>
+          <div class="feature-grid" id="formatTransforms"></div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Guarantees">
+        <div class="spec-entry">
+          <h2>Fidelity guarantees</h2>
+          <ul class="link-list" id="formatGuarantees"></ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">ded<span>ocs</span></div>
+      <div class="footer-links">
+        <a href="./playground.html">Playground</a>
+        <a href="./examples.html">Examples</a>
+        <a href="./cli.html">CLI</a>
+      </div>
+    </div>
+    <div class="footer-copy">The format is readable because the fidelity target is explicit.</div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -6,10 +6,12 @@ async function loadShowcase() {
   return response.json();
 }
 
-function formatBytes(bytes) {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+function qs(selector) {
+  return document.querySelector(selector);
+}
+
+function qsa(selector) {
+  return Array.from(document.querySelectorAll(selector));
 }
 
 function escapeHtml(value) {
@@ -21,23 +23,18 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-function padIndex(index) {
-  return String(index).padStart(4, '0');
+function formatBytes(bytes) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
 }
 
 function normalizeGuideText(text) {
-  return String(text)
-    .replace(/\s+/g, ' ')
-    .trim();
+  return String(text).replace(/\s+/g, ' ').trim();
 }
 
-function countLiteral(text, needle) {
-  if (!needle) return 0;
-  return String(text).split(needle).length - 1;
-}
-
-function replaceLiteral(text, needle, replacement) {
-  return String(text).split(needle).join(replacement);
+function padIndex(index) {
+  return String(index).padStart(4, '0');
 }
 
 function unescapeAttr(value) {
@@ -176,266 +173,13 @@ function parsePlaygroundCommands(text) {
   return { transforms, errors };
 }
 
-function renderHero(data) {
-  document.querySelector('#hero-snippet').textContent = data.sample.coreSnippet;
-
-  const heroMeta = [
-    `v${data.package.version}`,
-    'package-exact',
-    'static site',
-  ];
-  document.querySelector('#hero-meta').innerHTML = heroMeta
-    .map((item) => `<span class="meta-pill">${escapeHtml(item)}</span>`)
-    .join('');
-
-  const proofItems = [
-    {
-      title: data.sample.proof.roundTripExact ? 'Exact round-trip verified' : 'Round-trip verification failed',
-      detail: data.sample.proof.roundTripExact
-        ? 'The bundled sample rebuilds package-equal with no content diffs.'
-        : 'The bundled sample failed package-equality verification.',
-    },
-    {
-      title: `${data.sample.stats.parts} explicit package parts`,
-      detail: `${data.sample.stats.xmlParts} UTF-8 parts and ${data.sample.stats.binaryParts} binary parts are visible in one file.`,
-    },
-    {
-      title: `${data.sample.proof.changedPartCount} parts change in the semantic demo`,
-      detail: 'The authored example shows exactly which package parts are touched when transforms compile.',
-    },
-  ];
-
-  document.querySelector('#hero-proof').innerHTML = proofItems
-    .map((item) => `
-      <div class="hero__proof-item">
-        <span class="proof-mark">+</span>
-        <div>
-          <strong>${escapeHtml(item.title)}</strong>
-          <span>${escapeHtml(item.detail)}</span>
-        </div>
-      </div>
-    `)
-    .join('');
+function countLiteral(text, needle) {
+  if (!needle) return 0;
+  return String(text).split(needle).length - 1;
 }
 
-function renderPrinciples(data) {
-  document.querySelector('#principles').innerHTML = data.principles
-    .map((item) => `
-      <article class="principle-strip__item">
-        <h3>${escapeHtml(item)}</h3>
-      </article>
-    `)
-    .join('');
-}
-
-function renderWorkflowBand(data) {
-  const parts = [];
-  data.workflowModes.forEach((item, index) => {
-    parts.push(`
-      <article class="workflow-band__node">
-        <span class="workflow-band__ext">${escapeHtml(item.ext)}</span>
-        <h3>${escapeHtml(item.label)}</h3>
-      </article>
-    `);
-    if (index < data.workflowModes.length - 1) {
-      parts.push('<div class="workflow-band__arrow" aria-hidden="true">↔</div>');
-    }
-  });
-  document.querySelector('#workflow-band').innerHTML = parts.join('');
-}
-
-function renderUseCases(data) {
-  document.querySelector('#use-cases').innerHTML = data.useCases
-    .map((item) => `
-      <article class="use-case-card">
-        <h3>${escapeHtml(item.title)}</h3>
-        <p>${escapeHtml(item.summary)}</p>
-      </article>
-    `)
-    .join('');
-}
-
-function renderGuarantees(data) {
-  document.querySelector('#guarantees-list').innerHTML = data.guarantees
-    .map((item) => `<li>${escapeHtml(item)}</li>`)
-    .join('');
-}
-
-function renderMetrics(data) {
-  const metrics = [
-    ['Package parts', data.sample.stats.parts],
-    ['Guide rows', data.sample.stats.paragraphs],
-    ['Transforms', data.transforms.length],
-    ['Base sample', formatBytes(data.sample.file.bytes)],
-    ['Dedocs file', formatBytes(data.sample.dedocs.bytes)],
-  ];
-
-  document.querySelector('#metrics').innerHTML = metrics
-    .map(([label, value]) => `
-      <article class="metric-ribbon__item">
-        <strong>${escapeHtml(value)}</strong>
-        <span>${escapeHtml(label)}</span>
-      </article>
-    `)
-    .join('');
-}
-
-function renderParts(data) {
-  document.querySelector('#parts-body').innerHTML = data.sample.parts
-    .map((part) => `
-      <tr>
-        <td>${escapeHtml(part.path)}</td>
-        <td>${escapeHtml(part.mediaType)}</td>
-        <td>${escapeHtml(part.encoding)}</td>
-        <td>${escapeHtml(formatBytes(part.bytes))}</td>
-      </tr>
-    `)
-    .join('');
-}
-
-function renderChangedParts(data) {
-  document.querySelector('#changed-parts').innerHTML = data.sample.proof.changedParts
-    .map((part) => `
-      <li>
-        <span class="delta-dot" aria-hidden="true"></span>
-        <div>
-          <strong>${escapeHtml(part.path)}</strong><br>
-          <span>${escapeHtml(part.type)}</span>
-        </div>
-      </li>
-    `)
-    .join('');
-}
-
-function renderCommandExamples(data) {
-  document.querySelector('#command-examples').innerHTML = data.commandExamples
-    .map((item) => `
-      <article class="demo-card">
-        <p class="demo-card__label">${escapeHtml(item.label)}</p>
-        <h3>${escapeHtml(item.label)}</h3>
-        <pre>${escapeHtml(item.command)}</pre>
-        <p>${escapeHtml(item.result)}</p>
-      </article>
-    `)
-    .join('');
-}
-
-function renderCommands(data) {
-  document.querySelector('#commands-list').innerHTML = data.commands
-    .map((item) => `
-      <article class="command-item">
-        <code>${escapeHtml(item.usage)}</code>
-        <p>${escapeHtml(item.summary)}</p>
-      </article>
-    `)
-    .join('');
-
-  document.querySelector('#transforms-list').innerHTML = data.transforms
-    .map((item) => `
-      <article class="command-item">
-        <code>${escapeHtml(item.type)}</code>
-        <p>${escapeHtml(item.summary)}</p>
-        <p>Scope: ${escapeHtml(item.scope)} · Payload: ${escapeHtml(item.payload)}</p>
-      </article>
-    `)
-    .join('');
-}
-
-function renderDownloads(data) {
-  document.querySelector('#downloads-list').innerHTML = data.downloads
-    .map((item) => `
-      <article class="download-dock__item">
-        <div>
-          <h3>${escapeHtml(item.label)}</h3>
-          <span>${escapeHtml(formatBytes(item.bytes))}</span>
-        </div>
-        <a href="${escapeHtml(item.href)}">Download</a>
-      </article>
-    `)
-    .join('');
-}
-
-function renderQuickStart(data) {
-  document.querySelector('#quick-start').innerHTML = data.quickStart
-    .map((item) => `
-      <article class="quickstart-card">
-        <p class="quickstart-card__label">${escapeHtml(item.title)}</p>
-        <h3>${escapeHtml(item.title)}</h3>
-        <pre>${escapeHtml(item.command)}</pre>
-      </article>
-    `)
-    .join('');
-}
-
-function setupViewer(data) {
-  const views = {
-    guide: {
-      title: 'Generated guide preview',
-      text: data.sample.guidePreview.join('\n'),
-    },
-    authoring: {
-      title: 'Authoring commands',
-      text: data.sample.authoringSnippet,
-    },
-    preview: {
-      title: 'Guide after transforms',
-      text: data.sample.guideAfterTransforms.join('\n'),
-    },
-    diff: {
-      title: 'Changed package parts',
-      text: JSON.stringify(data.sample.proof.changedParts, null, 2),
-    },
-  };
-
-  const tabs = document.querySelector('#viewer-tabs');
-  const title = document.querySelector('#viewer-title');
-  const code = document.querySelector('#viewer-code');
-  const tabOrder = [
-    ['guide', 'Guide'],
-    ['authoring', 'Authoring'],
-    ['preview', 'Preview'],
-    ['diff', 'Diff'],
-  ];
-
-  function activate(key) {
-    for (const button of tabs.querySelectorAll('button')) {
-      const active = button.dataset.mode === key;
-      button.setAttribute('aria-selected', active ? 'true' : 'false');
-      button.tabIndex = active ? 0 : -1;
-    }
-    title.textContent = views[key].title;
-    code.textContent = views[key].text;
-  }
-
-  tabs.innerHTML = tabOrder
-    .map(([key, label], index) => `
-      <button
-        type="button"
-        role="tab"
-        data-mode="${key}"
-        aria-selected="${index === 0 ? 'true' : 'false'}"
-        tabindex="${index === 0 ? '0' : '-1'}"
-      >${escapeHtml(label)}</button>
-    `)
-    .join('');
-
-  tabs.addEventListener('click', (event) => {
-    const button = event.target.closest('button[data-mode]');
-    if (!button) return;
-    activate(button.dataset.mode);
-  });
-
-  activate('guide');
-}
-
-function matchesExpectation(paragraph, transform) {
-  if (transform.expectedText != null && transform.expectedText !== '') {
-    if (paragraph.text !== normalizeGuideText(transform.expectedText)) return false;
-  }
-  if (transform.expectedStyle != null && transform.expectedStyle !== '') {
-    if ((paragraph.style || '') !== transform.expectedStyle) return false;
-  }
-  return true;
+function replaceLiteral(text, needle, replacement) {
+  return String(text).split(needle).join(replacement);
 }
 
 function createParagraph(text, style, kind, notes) {
@@ -472,6 +216,16 @@ function markParagraph(paragraph, kind, note) {
   }
 }
 
+function matchesExpectation(paragraph, transform) {
+  if (transform.expectedText != null && transform.expectedText !== '') {
+    if (paragraph.text !== normalizeGuideText(transform.expectedText)) return false;
+  }
+  if (transform.expectedStyle != null && transform.expectedStyle !== '') {
+    if ((paragraph.style || '') !== transform.expectedStyle) return false;
+  }
+  return true;
+}
+
 function findParagraphIndex(paragraphs, transform) {
   let candidateIndex = -1;
 
@@ -493,12 +247,8 @@ function findParagraphIndex(paragraphs, transform) {
       .map((paragraph, index) => ({ paragraph, index }))
       .filter(({ paragraph }) => matchesExpectation(paragraph, transform));
 
-    if (matches.length === 1) {
-      return matches[0].index;
-    }
-    if (matches.length > 1) {
-      throw new Error(`Paragraph selection is ambiguous for ${transform.type}`);
-    }
+    if (matches.length === 1) return matches[0].index;
+    if (matches.length > 1) throw new Error(`Paragraph selection is ambiguous for ${transform.type}`);
   }
 
   if (candidateIndex === -1) {
@@ -515,10 +265,7 @@ function splitParagraphMatch(paragraph, transform) {
   }
 
   const actualMatches = countLiteral(paragraph.text, match);
-  const expectedCount = transform.count === '' || transform.count == null
-    ? 1
-    : Number(transform.count);
-
+  const expectedCount = transform.count === '' || transform.count == null ? 1 : Number(transform.count);
   if (!Number.isInteger(expectedCount) || expectedCount < 1) {
     throw new Error(`Invalid match count for ${transform.type}`);
   }
@@ -537,15 +284,12 @@ function applyPlaygroundTransforms(baseParagraphs, transforms) {
       const needle = transform.find || '';
       const replacement = transform.replace || '';
       const expectedCount = transform.count === '' || transform.count == null ? 1 : Number(transform.count);
-      if (!needle) {
-        throw new Error('replace-text requires a FIND payload');
-      }
+      if (!needle) throw new Error('replace-text requires a FIND payload');
 
       let matchCount = 0;
       paragraphs.forEach((paragraph) => {
         matchCount += countLiteral(paragraph.text, needle);
       });
-
       if (!Number.isInteger(expectedCount) || expectedCount < 1) {
         throw new Error('replace-text requires a valid count');
       }
@@ -568,20 +312,12 @@ function applyPlaygroundTransforms(baseParagraphs, transforms) {
       const paragraph = paragraphs[index];
       splitParagraphMatch(paragraph, transform);
 
-      const formatParts = [];
-      if (transform.bold === 'true') formatParts.push('bold');
-      if (transform.italic === 'true') formatParts.push('italic');
-      if (transform.underline) formatParts.push(`underline:${transform.underline}`);
-      if (transform.color) formatParts.push(`color:${transform.color}`);
-      if (transform.highlight) formatParts.push(`highlight:${transform.highlight}`);
-      if (transform.superscript === 'true') formatParts.push('superscript');
-      if (transform.subscript === 'true') formatParts.push('subscript');
-
-      markParagraph(
-        paragraph,
-        'changed',
-        `format ${transform.match}${formatParts.length ? ` (${formatParts.join(', ')})` : ''}`
-      );
+      const tokens = [];
+      if (transform.bold === 'true') tokens.push('bold');
+      if (transform.italic === 'true') tokens.push('italic');
+      if (transform.color) tokens.push(`color:${transform.color}`);
+      if (transform.highlight) tokens.push(`highlight:${transform.highlight}`);
+      markParagraph(paragraph, 'changed', `format ${transform.match}${tokens.length ? ` (${tokens.join(', ')})` : ''}`);
       addTouchedPart(changedParts, 'word/document.xml', 'inline formatting');
       return;
     }
@@ -623,11 +359,7 @@ function applyPlaygroundTransforms(baseParagraphs, transforms) {
     if (transform.type === 'insert-paragraph-before' || transform.type === 'insert-paragraph-after') {
       const index = findParagraphIndex(paragraphs, transform);
       const insertAt = transform.type === 'insert-paragraph-before' ? index : index + 1;
-      paragraphs.splice(
-        insertAt,
-        0,
-        createParagraph(transform.text || '', transform.style || '', 'inserted', ['inserted paragraph'])
-      );
+      paragraphs.splice(insertAt, 0, createParagraph(transform.text || '', transform.style || '', 'inserted', ['inserted paragraph']));
       addTouchedPart(changedParts, 'word/document.xml', 'paragraph insertion');
       return;
     }
@@ -643,19 +375,11 @@ function applyPlaygroundTransforms(baseParagraphs, transforms) {
       const index = findParagraphIndex(paragraphs, transform);
       const rows = String(transform.tsv || '')
         .split(/\r?\n/)
-        .filter((row) => row.trim().length > 0)
+        .filter((row) => row.trim())
         .map((row) => row.split('\t'));
-
       const inserted = [];
-      if (transform.caption) {
-        inserted.push(createParagraph(transform.caption, '', 'inserted', ['table caption']));
-      }
-      rows.forEach((row) => {
-        row.forEach((cell) => {
-          inserted.push(createParagraph(cell, '', 'inserted', ['table cell']));
-        });
-      });
-
+      if (transform.caption) inserted.push(createParagraph(transform.caption, '', 'inserted', ['table caption']));
+      rows.forEach((row) => row.forEach((cell) => inserted.push(createParagraph(cell, '', 'inserted', ['table cell']))));
       paragraphs.splice(index + 1, 0, ...inserted);
       addTouchedPart(changedParts, 'word/document.xml', 'table insertion');
       return;
@@ -663,14 +387,11 @@ function applyPlaygroundTransforms(baseParagraphs, transforms) {
 
     if (transform.type === 'insert-figure-after') {
       const index = findParagraphIndex(paragraphs, transform);
-      const caption = transform.caption || '[Figure]';
-      paragraphs.splice(index + 1, 0, createParagraph(caption, '', 'inserted', ['figure caption']));
+      paragraphs.splice(index + 1, 0, createParagraph(transform.caption || '[Figure]', '', 'inserted', ['figure caption']));
       addTouchedPart(changedParts, 'word/document.xml', 'figure insertion');
       addTouchedPart(changedParts, 'word/_rels/document.xml.rels', 'image relationship');
       addTouchedPart(changedParts, '[Content_Types].xml', 'image content type');
-      if (transform.imagePart) {
-        addTouchedPart(changedParts, transform.imagePart, 'image payload');
-      }
+      if (transform.imagePart) addTouchedPart(changedParts, transform.imagePart, 'image payload');
       return;
     }
 
@@ -695,178 +416,344 @@ function applyPlaygroundTransforms(baseParagraphs, transforms) {
   };
 }
 
-function renderPlaygroundPreview(paragraphs) {
-  return paragraphs
-    .map((paragraph, index) => `
-      <article class="playground-line${paragraph.kind ? ` playground-line--${paragraph.kind}` : ''}">
-        <div class="playground-line__meta">
-          <span class="playground-line__index">${escapeHtml(padIndex(index))}</span>
-          ${paragraph.style ? `<span class="playground-line__style">${escapeHtml(paragraph.style)}</span>` : ''}
-          ${paragraph.kind ? `<span class="playground-line__flag">${escapeHtml(paragraph.kind)}</span>` : ''}
-        </div>
-        <p>${escapeHtml(paragraph.text || '[empty paragraph]')}</p>
-        ${paragraph.notes.length ? `<div class="playground-line__notes">${paragraph.notes.map((note) => `<span>${escapeHtml(note)}</span>`).join('')}</div>` : ''}
-      </article>
-    `)
-    .join('');
-}
-
-function renderPlaygroundParts(items) {
-  if (items.length === 0) {
-    return '<li class="playground-empty">No package parts would change.</li>';
-  }
-
-  return items
-    .map((item) => `
-      <li>
-        <span class="delta-dot" aria-hidden="true"></span>
-        <div>
-          <strong>${escapeHtml(item.path)}</strong><br>
-          <span>${escapeHtml(item.reason)}</span>
-        </div>
-      </li>
-    `)
-    .join('');
-}
-
-function renderPlaygroundErrors(items) {
-  if (items.length === 0) {
-    return '<li class="playground-empty">No parse or anchor errors.</li>';
-  }
-
-  return items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
-}
-
-async function copyToClipboard(text, button, successLabel) {
-  try {
-    await navigator.clipboard.writeText(text);
-    if (button) {
-      const original = button.dataset.resetHtml || button.innerHTML;
-      button.dataset.resetHtml = original;
-      button.textContent = successLabel;
-      window.setTimeout(() => {
-        button.innerHTML = original;
-      }, 1400);
+function renderWordPreview(paragraphs, limit) {
+  return paragraphs.slice(0, limit).map((paragraph, index) => {
+    const text = escapeHtml(paragraph.text || '');
+    const style = paragraph.style || '';
+    if (style === 'Heading1') {
+      const tag = index === 0 ? 'h1' : 'h2';
+      return `<${tag}>${text}</${tag}>`;
     }
-  } catch (error) {
-    if (button) {
-      button.textContent = 'Copy failed';
-      window.setTimeout(() => {
-        button.innerHTML = button.dataset.resetHtml || 'Copy';
-      }, 1400);
-    }
-  }
+    if (style === 'Heading2') return `<h3>${text}</h3>`;
+    return `<p>${text}</p>`;
+  }).join('');
 }
 
-function setupInstallCopy() {
-  const button = document.querySelector('#install-command');
-  if (!button) return;
-  button.addEventListener('click', () => {
-    const code = button.querySelector('code');
-    copyToClipboard(code ? code.textContent : '', button, 'Copied install command');
+function renderTransformList(items) {
+  return items.map((item) => `
+    <li>
+      <strong>${escapeHtml(item.type)}</strong><br>
+      <span>${escapeHtml(item.summary)}</span>
+    </li>
+  `).join('');
+}
+
+function renderPreviewLines(paragraphs, limit) {
+  return paragraphs.slice(0, limit).map((paragraph, index) => `
+    <div class="preview-line${paragraph.kind ? ` ${paragraph.kind}` : ''}">
+      <div class="preview-meta">
+        <span class="preview-chip">${escapeHtml(padIndex(index))}</span>
+        ${paragraph.style ? `<span class="preview-chip">${escapeHtml(paragraph.style)}</span>` : ''}
+        ${paragraph.kind ? `<span class="preview-chip">${escapeHtml(paragraph.kind)}</span>` : ''}
+      </div>
+      <p>${escapeHtml(paragraph.text || '[empty paragraph]')}</p>
+      ${paragraph.notes && paragraph.notes.length ? `<div class="preview-notes">${paragraph.notes.map((note) => `<span>${escapeHtml(note)}</span>`).join('')}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function setupNav() {
+  const toggle = qs('.nav-toggle');
+  const links = qs('.nav-links');
+  if (toggle && links) {
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  }
+
+  const current = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  qsa('.nav-links a').forEach((link) => {
+    const href = (link.getAttribute('href') || '').replace('./', '');
+    if (href.toLowerCase() === current) {
+      link.classList.add('active');
+    }
   });
 }
 
-function setupPlayground(data) {
-  const source = data.playground || {};
-  const input = document.querySelector('#playground-input');
-  const preview = document.querySelector('#playground-preview');
-  const parts = document.querySelector('#playground-parts');
-  const errors = document.querySelector('#playground-errors');
-  const status = document.querySelector('#playground-status');
-  const templates = document.querySelector('#playground-templates');
-  const note = document.querySelector('#playground-note');
-  const reset = document.querySelector('#playground-reset');
-  const copy = document.querySelector('#playground-copy');
+function setupReveal() {
+  const items = qsa('.reveal');
+  if (items.length === 0) return;
 
-  if (!input || !preview || !parts || !errors || !status || !templates) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
 
-  const baseParagraphs = Array.isArray(source.baseParagraphs) ? source.baseParagraphs : [];
-  const initialAuthoring = source.initialAuthoring || '';
-  input.value = initialAuthoring;
-  note.textContent = source.note || '';
+  items.forEach((item) => observer.observe(item));
+}
 
-  templates.innerHTML = (source.templates || [])
-    .map((item, index) => `
-      <button
-        type="button"
-        class="tool-button tool-button--ghost"
-        data-template-index="${index}"
-      >${escapeHtml(item.label)}</button>
-    `)
-    .join('');
+async function copyText(text, button, label) {
+  try {
+    await navigator.clipboard.writeText(text);
+    const original = button.dataset.resetText || button.textContent;
+    button.dataset.resetText = original;
+    button.textContent = label;
+    window.setTimeout(() => {
+      button.textContent = original;
+    }, 1400);
+  } catch {
+    const original = button.dataset.resetText || button.textContent;
+    button.textContent = 'Copy failed';
+    window.setTimeout(() => {
+      button.textContent = original;
+    }, 1400);
+  }
+}
 
-  function runPlayground() {
+function setupCopyButtons() {
+  qsa('[data-copy]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const target = qs(button.getAttribute('data-copy'));
+      if (!target) return;
+      copyText(target.textContent || '', button, 'Copied');
+    });
+  });
+}
+
+function setupTabs() {
+  const buttons = qsa('[data-tab]');
+  if (buttons.length === 0) return;
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const name = button.getAttribute('data-tab');
+      buttons.forEach((other) => other.classList.toggle('active', other === button));
+      qsa('[data-panel]').forEach((panel) => {
+        panel.classList.toggle('active', panel.getAttribute('data-panel') === name);
+      });
+    });
+  });
+}
+
+function initHome(data) {
+  if (document.body.dataset.page !== 'home') return;
+
+  const heroCode = qs('#heroCode');
+  const heroPreview = qs('#heroPreview');
+  const formatCode = qs('#formatCode');
+  const formatPreview = qs('#formatPreview');
+  const transformsList = qs('#homeTransforms');
+
+  if (heroCode) heroCode.textContent = data.sample.coreSnippet;
+  if (heroPreview) heroPreview.innerHTML = renderWordPreview(data.playground.baseParagraphs, 6);
+  if (formatCode) formatCode.textContent = data.sample.authoringSnippet;
+
+  if (formatPreview) {
+    const parsed = parsePlaygroundCommands(data.playground.initialAuthoring);
+    const applied = applyPlaygroundTransforms(data.playground.baseParagraphs, parsed.transforms);
+    formatPreview.innerHTML = renderPreviewLines(applied.paragraphs, 8);
+  }
+
+  if (transformsList) {
+    transformsList.innerHTML = renderTransformList(data.transforms.slice(0, 6));
+  }
+}
+
+function initExamples(data) {
+  if (document.body.dataset.page !== 'examples') return;
+
+  const tags = qs('#examplesTags');
+  const sampleCode = qs('#examplesSampleCode');
+  const samplePreview = qs('#examplesSamplePreview');
+  const authoringCode = qs('#examplesAuthoringCode');
+  const authoringPreview = qs('#examplesAuthoringPreview');
+  const partsBody = qs('#examplesPartsBody');
+  const changedParts = qs('#examplesChangedParts');
+  const downloads = qs('#examplesDownloads');
+
+  if (tags) {
+    tags.innerHTML = [
+      `<span class="tag tag-green">${escapeHtml(`${data.sample.stats.parts} parts`)}</span>`,
+      `<span class="tag tag-teal">${escapeHtml(`${data.sample.stats.paragraphs} guide rows`)}</span>`,
+      `<span class="tag tag-amber">${escapeHtml(`${data.sample.proof.changedPartCount} changed parts`)}</span>`,
+      `<span class="tag tag-green">${escapeHtml(data.sample.proof.roundTripExact ? 'round-trip exact' : 'round-trip differs')}</span>`,
+    ].join('');
+  }
+
+  if (sampleCode) sampleCode.textContent = data.sample.coreSnippet;
+  if (samplePreview) samplePreview.innerHTML = renderWordPreview(data.playground.baseParagraphs, 7);
+  if (authoringCode) authoringCode.textContent = data.sample.authoringSnippet;
+
+  if (authoringPreview) {
+    const parsed = parsePlaygroundCommands(data.playground.initialAuthoring);
+    const applied = applyPlaygroundTransforms(data.playground.baseParagraphs, parsed.transforms);
+    authoringPreview.innerHTML = renderPreviewLines(applied.paragraphs, 12);
+  }
+
+  if (partsBody) {
+    partsBody.innerHTML = data.sample.parts.map((part) => `
+      <tr>
+        <td>${escapeHtml(part.path)}</td>
+        <td>${escapeHtml(part.mediaType)}</td>
+        <td>${escapeHtml(part.encoding)}</td>
+        <td>${escapeHtml(formatBytes(part.bytes))}</td>
+      </tr>
+    `).join('');
+  }
+
+  if (changedParts) {
+    changedParts.innerHTML = data.sample.proof.changedParts.map((part) => `
+      <li>
+        <strong>${escapeHtml(part.path)}</strong><br>
+        <span>${escapeHtml(part.type)}</span>
+      </li>
+    `).join('');
+  }
+
+  if (downloads) {
+    downloads.innerHTML = data.downloads.map((item) => `
+      <li>
+        <a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a><br>
+        <span>${escapeHtml(formatBytes(item.bytes))}</span>
+      </li>
+    `).join('');
+  }
+}
+
+function initCli(data) {
+  if (document.body.dataset.page !== 'cli') return;
+
+  const commandList = qs('#cliCommands');
+  const transformList = qs('#cliTransforms');
+
+  if (commandList) {
+    commandList.innerHTML = data.commands.map((item) => `
+      <section class="api-entry" id="${escapeHtml(item.name)}">
+        <div class="api-entry-header">${escapeHtml(item.usage)}</div>
+        <div class="api-entry-body">
+          <p>${escapeHtml(item.summary)}</p>
+        </div>
+      </section>
+    `).join('');
+  }
+
+  if (transformList) {
+    transformList.innerHTML = data.transforms.map((item) => `
+      <div class="feature-cell">
+        <span class="feature-tag">${escapeHtml(item.scope)}</span>
+        <h3>${escapeHtml(item.type)}</h3>
+        <p>${escapeHtml(item.summary)}</p>
+      </div>
+    `).join('');
+  }
+}
+
+function initFormat(data) {
+  if (document.body.dataset.page !== 'format') return;
+
+  const shape = qs('#formatShape');
+  const transforms = qs('#formatTransforms');
+  const guarantees = qs('#formatGuarantees');
+
+  if (shape) shape.textContent = data.sample.coreSnippet;
+
+  if (transforms) {
+    transforms.innerHTML = data.transforms.map((item) => `
+      <div class="feature-cell">
+        <span class="feature-tag">${escapeHtml(item.payload)}</span>
+        <h3>${escapeHtml(item.type)}</h3>
+        <p>${escapeHtml(item.summary)}</p>
+      </div>
+    `).join('');
+  }
+
+  if (guarantees) {
+    guarantees.innerHTML = data.guarantees.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
+  }
+}
+
+function initPlayground(data) {
+  if (document.body.dataset.page !== 'playground') return;
+
+  const input = qs('#playgroundInput');
+  const preview = qs('#playgroundPreview');
+  const parts = qs('#playgroundParts');
+  const errors = qs('#playgroundErrors');
+  const status = qs('#playgroundStatus');
+  const note = qs('#playgroundNote');
+  const templateButtons = qs('#templateButtons');
+  const resetButton = qs('#resetPlayground');
+  const copyButton = qs('#copyPlayground');
+
+  if (!input || !preview || !parts || !errors || !status || !templateButtons) return;
+
+  const baseParagraphs = Array.isArray(data.playground.baseParagraphs) ? data.playground.baseParagraphs : [];
+  const initialText = data.playground.initialAuthoring || '';
+  input.value = initialText;
+  if (note) note.textContent = data.playground.note || '';
+
+  templateButtons.innerHTML = data.playground.templates.map((item, index) => `
+    <button type="button" class="btn btn-secondary btn-small" data-template-index="${index}">${escapeHtml(item.label)}</button>
+  `).join('');
+
+  function render() {
     const parsed = parsePlaygroundCommands(input.value);
     const applied = applyPlaygroundTransforms(baseParagraphs, parsed.transforms);
     const allErrors = parsed.errors.concat(applied.errors);
 
-    preview.innerHTML = renderPlaygroundPreview(applied.paragraphs);
-    parts.innerHTML = renderPlaygroundParts(applied.changedParts);
-    errors.innerHTML = renderPlaygroundErrors(allErrors);
+    preview.innerHTML = renderPreviewLines(applied.paragraphs, applied.paragraphs.length);
+    parts.innerHTML = applied.changedParts.length === 0
+      ? '<li class="playground-empty">No package parts would change.</li>'
+      : applied.changedParts.map((item) => `
+          <li>
+            <strong>${escapeHtml(item.path)}</strong><br>
+            <span>${escapeHtml(item.reason)}</span>
+          </li>
+        `).join('');
+
+    errors.innerHTML = allErrors.length === 0
+      ? '<li class="playground-empty">No parse or anchor errors.</li>'
+      : allErrors.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
+
     status.innerHTML = [
-      `<span class="meta-pill">${escapeHtml(`${parsed.transforms.length} transforms`)}</span>`,
-      `<span class="meta-pill">${escapeHtml(`${applied.changedParts.length} touched parts`)}</span>`,
-      `<span class="meta-pill${allErrors.length ? ' meta-pill--warn' : ' meta-pill--ok'}">${escapeHtml(allErrors.length ? `${allErrors.length} issues` : 'valid preview')}</span>`,
+      `<span class="status-chip">${escapeHtml(`${parsed.transforms.length} transforms`)}</span>`,
+      `<span class="status-chip">${escapeHtml(`${applied.changedParts.length} touched parts`)}</span>`,
+      `<span class="status-chip ${allErrors.length ? 'warn' : 'ok'}">${escapeHtml(allErrors.length ? `${allErrors.length} issues` : 'valid preview')}</span>`,
     ].join('');
   }
 
-  templates.addEventListener('click', (event) => {
-    const button = event.target.closest('button[data-template-index]');
+  templateButtons.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-template-index]');
     if (!button) return;
-
-    const template = source.templates[Number(button.dataset.templateIndex)];
+    const template = data.playground.templates[Number(button.dataset.templateIndex)];
     if (!template) return;
-
     const current = input.value.trim();
     input.value = current ? `${current}\n\n${template.snippet}` : template.snippet;
-    runPlayground();
+    render();
     input.focus();
-    input.setSelectionRange(input.value.length, input.value.length);
   });
 
-  reset.addEventListener('click', () => {
-    input.value = initialAuthoring;
-    runPlayground();
+  resetButton.addEventListener('click', () => {
+    input.value = initialText;
+    render();
   });
 
-  copy.addEventListener('click', () => {
-    copyToClipboard(input.value, copy, 'Copied commands');
+  copyButton.addEventListener('click', () => {
+    copyText(input.value, copyButton, 'Copied');
   });
 
-  input.addEventListener('input', runPlayground);
-  runPlayground();
-}
-
-function enableEntranceMotion() {
-  requestAnimationFrame(() => {
-    document.body.classList.add('is-ready');
-  });
+  input.addEventListener('input', render);
+  render();
 }
 
 async function main() {
+  setupNav();
+  setupReveal();
+  setupCopyButtons();
+  setupTabs();
+
   const data = await loadShowcase();
-  renderHero(data);
-  renderWorkflowBand(data);
-  renderPrinciples(data);
-  renderUseCases(data);
-  renderGuarantees(data);
-  renderMetrics(data);
-  renderParts(data);
-  renderChangedParts(data);
-  renderCommandExamples(data);
-  renderCommands(data);
-  renderDownloads(data);
-  renderQuickStart(data);
-  setupViewer(data);
-  setupPlayground(data);
-  setupInstallCopy();
-  enableEntranceMotion();
+  initHome(data);
+  initExamples(data);
+  initCli(data);
+  initFormat(data);
+  initPlayground(data);
 }
 
 main().catch((error) => {
-  const target = document.querySelector('#viewer-code');
-  if (target) {
-    target.textContent = String(error.message || error);
-  }
+  console.error(error);
 });

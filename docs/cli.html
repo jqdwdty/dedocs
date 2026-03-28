@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLI - dedocs</title>
+  <meta name="description" content="CLI reference for decompile, normalize, compile, and verify.">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="cli">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="./index.html" class="nav-logo" aria-label="dedocs home">ded<span>ocs</span></a>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <div class="nav-links">
+        <a href="./index.html">Home</a>
+        <a href="./playground.html">Playground</a>
+        <a href="./examples.html">Examples</a>
+        <a href="./cli.html">CLI</a>
+        <a href="./format.html">Format</a>
+        <a href="./vision.html">Vision</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="container">
+      <section class="section" style="border-top:none" aria-label="CLI intro">
+        <div class="section-label">CLI</div>
+        <h1>Command-line reference</h1>
+        <p class="section-intro">The operational loop is short: decompile, edit, normalize, compile, verify. This page documents the shipped command surface and the semantic commands it works with.</p>
+        <div class="install-command">
+          <code id="cliInstallCommand">git clone https://github.com/jqdwdty/dedocs.git &amp;&amp; cd dedocs &amp;&amp; npm test</code>
+          <button type="button" class="btn btn-primary btn-small" data-copy="#cliInstallCommand">Copy</button>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Workflow loop">
+        <div class="section-label reveal">Workflow</div>
+        <h2 class="reveal">The loop in four commands</h2>
+        <div class="code-output reveal">
+          <div class="code-output-code">
+            <div class="code-output-label">Command</div>
+            <pre><code>dedocs decompile input.docx output.dedocs
+dedocs normalize output.dedocs
+dedocs compile output.dedocs rebuilt.docx
+dedocs verify input.docx rebuilt.docx</code></pre>
+          </div>
+          <div class="code-output-result">
+            <div class="result-label">What you get</div>
+            <p>One single-file source artifact, refreshed guides and metadata, a rebuilt `.docx`, and a part-by-part equality report.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Commands">
+        <div class="section-label reveal">Commands</div>
+        <h2 class="reveal">Shipped CLI commands</h2>
+        <div class="docs-grid reveal">
+          <div class="docs-main" id="cliCommands"></div>
+          <div class="docs-side">
+            <div class="card">
+              <h3>Typical loop</h3>
+              <pre><code>dedocs decompile sample-report.docx sample-report.dedocs
+# edit the file
+dedocs normalize sample-report.dedocs
+dedocs compile sample-report.dedocs sample-report-edited.docx
+dedocs verify sample-report.docx sample-report-edited.docx</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Semantic transforms">
+        <div class="section-label reveal">Semantic surface</div>
+        <h2 class="reveal">Transform catalog</h2>
+        <div class="feature-grid reveal" id="cliTransforms"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">ded<span>ocs</span></div>
+      <div class="footer-links">
+        <a href="./playground.html">Playground</a>
+        <a href="./format.html">Format</a>
+        <a href="./vision.html">Vision</a>
+      </div>
+    </div>
+    <div class="footer-copy">CLI for the exact core. Browser for the preview layer.</div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

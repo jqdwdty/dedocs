@@ -21,8 +21,19 @@ describe('site build', () => {
       'sample-authoring.dedocs',
       'sample-authoring.docx',
     ];
+    const pages = [
+      'index.html',
+      'playground.html',
+      'examples.html',
+      'cli.html',
+      'format.html',
+      'vision.html',
+    ];
 
     assert.equal(fs.existsSync(showcasePath), true);
+    for (const page of pages) {
+      assert.equal(fs.existsSync(path.join(root, 'docs', page)), true, `${page} missing`);
+    }
     for (const name of downloads) {
       assert.equal(fs.existsSync(path.join(root, 'docs', 'downloads', name)), true, `${name} missing`);
       assert.equal(fs.existsSync(path.join(root, 'examples', name)), true, `${name} example missing`);
