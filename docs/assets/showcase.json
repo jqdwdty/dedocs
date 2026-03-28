@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-28T08:15:36.892Z",
+  "generatedAt": "2026-03-28T08:40:24.249Z",
   "package": {
     "name": "dedocs",
     "version": "0.2.0",
@@ -129,6 +129,37 @@
       "guides": 1,
       "paragraphs": 9
     },
+    "proof": {
+      "roundTripExact": true,
+      "roundTripDiffs": [],
+      "changedPartCount": 6,
+      "changedParts": [
+        {
+          "path": "[Content_Types].xml",
+          "type": "content"
+        },
+        {
+          "path": "word/_rels/document.xml.rels",
+          "type": "content"
+        },
+        {
+          "path": "word/comments.xml",
+          "type": "missing"
+        },
+        {
+          "path": "word/document.xml",
+          "type": "content"
+        },
+        {
+          "path": "word/footnotes.xml",
+          "type": "missing"
+        },
+        {
+          "path": "word/media/showcase-image.png",
+          "type": "missing"
+        }
+      ]
+    },
     "guidePreview": [
       "\\p[index=\"0000\", style=\"Heading1\"] Introduction",
       "\\p[index=\"0001\"] This is the first paragraph of the introduction. It contains some text about platform governance and political advertising.",
@@ -186,33 +217,7 @@
         "bytes": 621
       }
     ],
-    "changedParts": [
-      {
-        "path": "[Content_Types].xml",
-        "type": "content"
-      },
-      {
-        "path": "word/_rels/document.xml.rels",
-        "type": "content"
-      },
-      {
-        "path": "word/comments.xml",
-        "type": "missing"
-      },
-      {
-        "path": "word/document.xml",
-        "type": "content"
-      },
-      {
-        "path": "word/footnotes.xml",
-        "type": "missing"
-      },
-      {
-        "path": "word/media/showcase-image.png",
-        "type": "missing"
-      }
-    ],
-    "coreSnippet": "\\dedocs[version=\"1\", package=\"docx\", fidelity=\"package-exact\", source=\"sample-report.docx\"]\n\n\\guide[name=\"document-paragraphs\", part=\"word/document.xml\", format=\"paragraphs\", boundary=\":::DEDOCS_GUIDE_1_ac4358603bd5:::\"]\n:::DEDOCS_GUIDE_1_ac4358603bd5:::\n\\p[index=\"0000\", style=\"Heading1\"] Introduction\n\\p[index=\"0001\"] This is the first paragraph of the introduction. It contains some text about platform governance and political advertising.\n\\p[index=\"0002\"] The second paragraph discusses Meta's advertising ban and its consequences for electoral transparency.\n\\p[index=\"0003\", style=\"Heading1\"] Methods\n\\p[index=\"0004\"] We developed an automated monitoring system that collected 268,635 advertisements from the Meta Ad Library.\n\\p[index=\"0005\", style=\"Heading1\"] Results\n\\p[index=\"0006\"] We confirmed 192 accounts as political advertisers that placed a total of 1,329 ads during the campaign period.\n\\p[index=\"0007\", style=\"Heading1\"] Discussion\n\\p[index=\"0008\"] The findings document a specific failure mode of platform self-regulation.\n:::DEDOCS_GUIDE_1_ac4358603bd5:::\n\\end{guide}\n\n\\part[path=\"[Content_Types].xml\", mediaType=\"application/xml\", encoding=\"utf8\", bytes=\"623\", sha256=\"66d0993dd9bd3bdd6ee8b7753c37f08d1628b75a19409ff47d3535493466aa86\", boundary=\":::DEDOCS_PART_1_66d0993dd9bd:::\"]\n:::DEDOCS_PART_1_66d0993dd9bd:::\n<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">\n  <Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>\n  <Default Extension=\"xml\" ContentType=\"application/xml\"/>\n  <Default Extension=\"png\" ContentType=\"image/png\"/>\n  <Override PartName=\"/word/document.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\"/>\n  <Override PartName=\"/word/styles.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml\"/>\n</Types>\n:::DEDOCS_PART_1_66d0993dd9bd:::\n\\end{part}\n\n\\part[path=\"_rels/.rels\", mediaType=\"application/octet-stream\", encoding=\"utf8\", bytes=\"302\", sha256=\"e9369a2425724259c87f4b280c2466ca505ff37212fdb8daeccdfd73ffb27101\", boundary=\":::DEDOCS_PART_2_e9369a242572:::\"]\n:::DEDOCS_PART_2_e9369a242572:::\n<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">\n  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\"/>\n</Relationships>\n:::DEDOCS_PART_2_e9369a242572:::\n\\end{part}\n\n\\part[path=\"word/_rels/document.xml.rels\", mediaType=\"application/xml\", encoding=\"utf8\", bytes=\"287\", sha256=\"c4424d40b3965466e429ebc82690c78d98dc094bb3163b45d731182baa3fac73\", boundary=\":::DEDOCS_PART_3_c4424d40b396:::\"]\n:::DEDOCS_PART_3_c4424d40b396:::\n<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">\n  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles\" Target=\"styles.xml\"/>\n</Relationships>\n:::DEDOCS_PART_3_c4424d40b396:::\n\\end{part}\n\n\\part[path=\"word/document.xml\", mediaType=\"application/xml\", encoding=\"utf8\", bytes=\"2764\", sha256=\"89ef6389c30157595358aad6470a55f2ed2557d118bbc4094a6f58917f9f3241\", boundary=\":::DEDOCS_PART_4_89ef6389c301:::\"]\n:::DEDOCS_PART_4_89ef6389c301:::\n<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"\n            xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"\n            xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\"\n            xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\"\n            xmlns:w16cid=\"http://schemas.microsoft.com/office/word/2016/wordml/cid\"\n            xmlns:w16cex=\"http://schemas.microsoft.com/office/word/2018/wordml/cex\"\n            xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\">\n  <w:body>\n    <w:p>\n      <w:pPr><w:pStyle w:val=\"Heading1\"/></w:pPr>\n      <w:r><w:t>Introduction</w:t></w:r>\n    </w:p>\n    <w:p>\n      <w:r><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\"/><w:sz w:val=\"24\"/></w:rPr><w:t xml:space=\"preserve\">This is the first paragraph of the introduction. It contains some text about platform governance and political advertising.</w:t></w:r>\n    </w:p>\n    <w:p>\n      <w:r><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\"/><w:sz w:val=\"24\"/></w:rPr><w:t xml:space=\"preserve\">The second paragraph discusses Meta</w:t></w:r><w:r><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\"/><w:sz w:val=\"24\"/><w:b/></w:rPr><w:t xml:space=\"preserve\">&apos;s advertising ban</w:t></w:r><w:r><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\"/><w:sz w:val=\"24\"/></w:rPr><w:t xml:space=\"preserve\"> and its consequences for electoral transparency.</w:t></w:r>\n    </w:p>\n    <w:p>\n      <w:pPr><w:pStyle w:val=\"Heading1\"/></w:pPr>\n      <w:r><w:t>Methods</w:t></w:r>\n    </w:p>\n    <w:p>\n      <w:r><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\"/><w:sz w:val=\"24\"/></w:rPr><w:t xml:space=\"preserve\">We developed an automated monitoring system that collected 268,635 advertisements from the Meta Ad Library.</w:t></w:r>\n    </w:p>\n    <w:p>\n      <w:pPr><w:pStyle w:val=\"Heading1\"/></w:pPr>\n      <w:r><w:t>Results</w:t></w:r>\n    </w:p>\n    <w:p>",
+    "coreSnippet": "\\dedocs[version=\"1\", package=\"docx\", fidelity=\"package-exact\", source=\"sample-report.docx\"]\n\n\\guide[name=\"document-paragraphs\", part=\"word/document.xml\", format=\"paragraphs\", boundary=\":::DEDOCS_GUIDE_1_ac4358603bd5:::\"]\n:::DEDOCS_GUIDE_1_ac4358603bd5:::\n\\p[index=\"0000\", style=\"Heading1\"] Introduction\n\\p[index=\"0001\"] This is the first paragraph of the introduction. It contains some text about platform governance and political advertising.\n\\p[index=\"0002\"] The second paragraph discusses Meta's advertising ban and its consequences for electoral transparency.\n\\p[index=\"0003\", style=\"Heading1\"] Methods\n\\p[index=\"0004\"] We developed an automated monitoring system that collected 268,635 advertisements from the Meta Ad Library.\n\\p[index=\"0005\", style=\"Heading1\"] Results\n\\p[index=\"0006\"] We confirmed 192 accounts as political advertisers that placed a total of 1,329 ads during the campaign period.\n\\p[index=\"0007\", style=\"Heading1\"] Discussion\n\\p[index=\"0008\"] The findings document a specific failure mode of platform self-regulation.\n:::DEDOCS_GUIDE_1_ac4358603bd5:::\n\\end{guide}\n\n\\part[path=\"[Content_Types].xml\", mediaType=\"application/xml\", encoding=\"utf8\", bytes=\"623\", sha256=\"66d0993dd9bd3bdd6ee8b7753c37f08d1628b75a19409ff47d3535493466aa86\", boundary=\":::DEDOCS_PART_1_66d0993dd9bd:::\"]\n:::DEDOCS_PART_1_66d0993dd9bd:::\n<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">\n  <Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>\n  <Default Extension=\"xml\" ContentType=\"application/xml\"/>\n  <Default Extension=\"png\" ContentType=\"image/png\"/>\n  <Override PartName=\"/word/document.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\"/>\n  <Override PartName=\"/word/styles.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml\"/>\n</Types>\n:::DEDOCS_PART_1_66d0993dd9bd:::\n\\end{part}\n\n\\part[path=\"_rels/.rels\", mediaType=\"application/octet-stream\", encoding=\"utf8\", bytes=\"302\", sha256=\"e9369a2425724259c87f4b280c2466ca505ff37212fdb8daeccdfd73ffb27101\", boundary=\":::DEDOCS_PART_2_e9369a242572:::\"]\n:::DEDOCS_PART_2_e9369a242572:::\n<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">\n  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\"/>",
     "authoringSnippet": "\\replace-text[part=\"word/document.xml\", count=\"1\"]\n<<<FIND\nplatform governance and political advertising.\nFIND\n<<<WITH\nplatform governance, political advertising, and auditability.\nWITH\n\\end{replace-text}\n\n\\format-text[part=\"\", index=\"0002\", match=\"Meta\", count=\"\", expectedText=\"The second paragraph discusses Meta's advertising ban and its consequences for electoral transparency.\", expectedStyle=\"\", bold=\"true\", italic=\"true\", underline=\"\", color=\"0F766E\", highlight=\"\", superscript=\"\", subscript=\"\"]\n\\end{format-text}\n\n\\insert-comment[part=\"\", index=\"0001\", match=\"platform governance\", count=\"\", expectedText=\"This is the first paragraph of the introduction. It contains some text about platform governance, political advertising, and auditability.\", expectedStyle=\"\", author=\"Dedocs\", date=\"\"]\n<<<TEXT\nClarify the exact policy boundary here.\nTEXT\n\\end{insert-comment}\n\n\\insert-footnote[part=\"\", index=\"0004\", match=\"268,635 advertisements\", count=\"\", expectedText=\"We developed an automated monitoring system that collected 268,635 advertisements from the Meta Ad Library.\", expectedStyle=\"\"]\n<<<TEXT\nSynthetic note inserted through the semantic layer.\nTEXT\n\\end{insert-footnote}\n\n\\insert-paragraph-after[part=\"\", index=\"0003\", style=\"\", expectedText=\"Methods\", expectedStyle=\"Heading1\"]\n<<<TEXT\nThis inserted paragraph shows how dedocs adds body text without raw XML edits.\nTEXT\n\\end{insert-paragraph-after}\n\n\\insert-paragraph-before[part=\"\", index=\"0005\", style=\"\", expectedText=\"Results\", expectedStyle=\"Heading1\"]\n<<<TEXT\nThis inserted paragraph lands before Results and stays anchored by expectations.\nTEXT\n\\end{insert-paragraph-before}\n\n\\insert-table-after[part=\"\", index=\"0003\", expectedText=\"Methods\", expectedStyle=\"Heading1\", caption=\"Table 1. Example metrics\", style=\"\", headers=\"\"]\n<<<TSV\nMetric\tValue\nAds collected\t268,635\nConfirmed advertisers\t192\nTSV\n\\end{insert-table-after}\n\n\\insert-figure-after[part=\"\", index=\"0005\", expectedText=\"Results\", expectedStyle=\"Heading1\", imagePart=\"word/media/showcase-image.png\", widthPx=\"120\", heightPx=\"90\", caption=\"Figure 1. Synthetic reference image\", altText=\"Synthetic reference image\"]\n\\end{insert-figure-after}"
   },
   "downloads": [

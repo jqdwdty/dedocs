@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 
 const {
@@ -78,14 +79,18 @@ function packagePartSummary(pkg) {
   }));
 }
 
-function buildAuthoringDedocs(sourceDedocsText) {
-  const pkg = parsePackage(sourceDedocsText, { strictMetadata: true });
+function withSampleImage(pkg) {
   pkg.parts.push({
     path: 'word/media/showcase-image.png',
     mediaType: 'image/png',
     encoding: 'base64',
     buffer: fs.readFileSync(fixtureImage),
   });
+}
+
+function buildAuthoringDedocs(sourceDedocsText) {
+  const pkg = parsePackage(sourceDedocsText, { strictMetadata: true });
+  withSampleImage(pkg);
 
   pkg.transforms = [
     {
@@ -157,6 +162,18 @@ function buildAuthoringDedocs(sourceDedocsText) {
   return normalizeDedocsText(serializePackage(pkg));
 }
 
+function buildRoundTripProof(dedocsText, sourceDocxPath) {
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dedocs-site-'));
+  const rebuiltPath = path.join(tempDir, 'roundtrip.docx');
+
+  try {
+    compileDedocsText(dedocsText, rebuiltPath, { strictMetadata: true });
+    return compareDocxPackages(sourceDocxPath, rebuiltPath);
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+}
+
 function main() {
   ensureDir(examplesDir);
   ensureDir(docsAssetsDir);
@@ -186,6 +203,7 @@ function main() {
 
   const authoredPkg = parsePackage(authoredDedocsText, { strictMetadata: true });
   const diff = compareDocxPackages(sampleDocxOut, sampleAuthoringDocxOut);
+  const roundTrip = buildRoundTripProof(sampleDedocsText, sampleDocxOut);
   const xmlParts = samplePkg.parts.filter(part => part.encoding === 'utf8').length;
   const binaryParts = samplePkg.parts.length - xmlParts;
 
@@ -226,11 +244,16 @@ function main() {
         guides: samplePkg.guides.length,
         paragraphs: guidePreview(samplePkg, 9999).length,
       },
+      proof: {
+        roundTripExact: roundTrip.equal,
+        roundTripDiffs: roundTrip.diffs,
+        changedPartCount: diff.diffs.length,
+        changedParts: diff.diffs,
+      },
       guidePreview: guidePreview(samplePkg, 10),
       guideAfterTransforms: guidePreview(authoredPkg, 12),
       parts: packagePartSummary(samplePkg),
-      changedParts: diff.diffs,
-      coreSnippet: leadingSnippet(sampleDedocsText, 80),
+      coreSnippet: leadingSnippet(sampleDedocsText, 34),
       authoringSnippet: authoringSnippet(authoredDedocsText),
     },
     downloads: [
